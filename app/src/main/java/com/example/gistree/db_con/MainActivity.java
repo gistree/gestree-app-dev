@@ -3,21 +3,20 @@ package com.example.gistree.db_con;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.gistree.db_con.classes.TabelaArvores;
 import com.example.gistree.db_con.db_con.DataFactory;
 
 import java.sql.SQLException;
 
 public class MainActivity extends AppCompatActivity {
 
-    DataFactory db;
+    private DataFactory db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = new DataFactory(this, TabelaArvores.DB_NAME, TabelaArvores.DB_PATH);
+        db = new DataFactory(this, DataFactory.DEFAULT_DB_NAME, DataFactory.DEFAULT_DB_PATH);
         try {
             db.open();
         } catch (SQLException e) {

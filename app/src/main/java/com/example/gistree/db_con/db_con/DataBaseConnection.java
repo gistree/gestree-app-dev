@@ -18,10 +18,6 @@ public class DataBaseConnection extends SQLiteOpenHelper {
     private Context myContext;
     private String DB_PATH;
 
-    public DataBaseConnection(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-    }
-
     public DataBaseConnection(Context context, String DB_NAME, String DB_PATH) {
         super(context, DB_NAME, null, 1);
         this.myContext = context;
@@ -53,7 +49,7 @@ public class DataBaseConnection extends SQLiteOpenHelper {
         if (checkDB != null) {
             checkDB.close();
         }
-        return checkDB != null ? true : false;
+        return checkDB != null;
     }
 
     private void copyDataBase() throws IOException {

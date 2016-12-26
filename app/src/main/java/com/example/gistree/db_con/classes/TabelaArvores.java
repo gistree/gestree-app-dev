@@ -12,9 +12,6 @@ import com.example.gistree.db_con.interfaces.Table;
 
 public class TabelaArvores implements Table {
 
-    public static String DB_PATH = "/data/data/com.example.henrique.db_con/databases/";
-    public static String DB_NAME = "testeArvore.db";
-
     private String tableName = "arvores";
     public static String COLUMN_1 = "id_db";
     public static String COLUMN_2 = "id";
@@ -23,7 +20,6 @@ public class TabelaArvores implements Table {
             COLUMN_1,
             COLUMN_2
     };
-
 
     @Override
     public ContentValues values(Item i){
