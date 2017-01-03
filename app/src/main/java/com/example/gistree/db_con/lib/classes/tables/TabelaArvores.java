@@ -1,10 +1,11 @@
-package com.example.gistree.db_con.classes;
+package com.example.gistree.db_con.lib.classes.tables;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.example.gistree.db_con.interfaces.Item;
-import com.example.gistree.db_con.interfaces.Table;
+import com.example.gistree.db_con.lib.classes.models.Arvore;
+import com.example.gistree.db_con.lib.interfaces.Item;
+import com.example.gistree.db_con.lib.interfaces.Table;
 
 /**
  * Created by henrique on 21-12-2016.
