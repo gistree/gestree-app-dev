@@ -42,6 +42,9 @@ public class DataBaseConnection extends SQLiteOpenHelper {
         SQLiteDatabase checkDB = null;
         try {
             String myPath = DB_PATH + getDatabaseName();
+            // DEVELOPMENT CODE
+            // TODO
+            myPath = this.getDatabaseName();
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
         } catch (SQLiteException e) {
             //database does't exist yet.
@@ -53,9 +56,14 @@ public class DataBaseConnection extends SQLiteOpenHelper {
     }
 
     private void copyDataBase() throws IOException {
-        InputStream myInput = myContext.getAssets().open(getDatabaseName());
-        Log.d("TESTE", DB_PATH);
+        // DEVELOPMENT CODE
+        // TODO - Uncomment next line
+        // InputStream myInput = myContext.getAssets().open(getDatabaseName());
+        InputStream myInput = myContext.getAssets().open("testeArvore.db");
         String outFileName = DB_PATH + getDatabaseName();
+        // DEVELOPMENT CODE
+        // TODO
+        outFileName = this.getDatabaseName();
         OutputStream myOutput = new FileOutputStream(outFileName);
         byte[] buffer = new byte[1024];
         int length;

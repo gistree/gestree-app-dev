@@ -29,7 +29,7 @@ public class HttpTest extends AsyncTask<Request, Integer, String> {
     @Override
     protected String doInBackground(Request... params) {
         Request req = params[0];
-        HttpURLConnection myCon = null;
+        HttpURLConnection myCon;
         StringBuilder total = new StringBuilder();
         try{
             myCon = (HttpURLConnection) req.getUrl().openConnection();
@@ -39,12 +39,11 @@ public class HttpTest extends AsyncTask<Request, Integer, String> {
                 myCon.setConnectTimeout(15000);
                 myCon.setDoInput(true);
                 myCon.setDoOutput(true);
-                OutputStream os = myCon.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                writer.write(req.getDataString());
-                writer.flush();
-                writer.close();
-                os.close();
+                myCon.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                OutputStreamWriter osw = new OutputStreamWriter(myCon.getOutputStream());
+                String dataToSend = req.getData().toString();
+                osw.write(dataToSend);
+                osw.close();
             }
             if (myCon.getResponseCode() == HttpsURLConnection.HTTP_OK) {
                 InputStream is = myCon.getInputStream();

@@ -1,10 +1,14 @@
 package com.example.gistree.db_con.lib.controllers;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.gistree.db_con.R;
 import com.example.gistree.db_con.lib.classes.models.Arvore;
+import com.example.gistree.db_con.lib.classes.models.TimestampModel;
+import com.example.gistree.db_con.lib.classes.tables.SyncTimestampTable;
+import com.example.gistree.db_con.lib.db_con.DataFactory;
 import com.example.gistree.db_con.lib.networking.HttpTest;
 import com.example.gistree.db_con.lib.networking.Request;
 import com.example.gistree.db_con.lib.networking.ServerAsyncResponse;
@@ -15,6 +19,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ButtonControllers implements View.OnClickListener {
+
+    private DataFactory db;
+
+    public ButtonControllers(DataFactory db){
+        this.db = db;
+    }
 
     @Override
     public void onClick(final View v) {
@@ -39,7 +49,9 @@ public class ButtonControllers implements View.OnClickListener {
                 ArrayList<Arvore> arvs = new ArrayList<>();
                 arvs.add(arv1);
                 arvs.add(arv2);
-                req = new Request(v.getContext(), "post_test", "POST", arvs);
+                SyncTimestampTable sync = new SyncTimestampTable();
+                TimestampModel tsm = (TimestampModel) db.getLastRecord(sync);
+                req = new Request(v.getContext(), "post_test", "POST", tsm.getTimestamp(), arvs);
                 new HttpTest(new ServerAsyncResponse() {
                     @Override
                     public void serverResponse(String st) {

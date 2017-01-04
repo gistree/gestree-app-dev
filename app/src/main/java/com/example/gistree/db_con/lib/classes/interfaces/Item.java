@@ -1,4 +1,4 @@
-package com.example.gistree.db_con.lib.interfaces;
+package com.example.gistree.db_con.lib.classes.interfaces;
 
 import org.json.JSONException;
 import org.json.JSONObject;

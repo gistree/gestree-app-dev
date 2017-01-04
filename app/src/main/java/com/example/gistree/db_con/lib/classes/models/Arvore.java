@@ -1,6 +1,6 @@
 package com.example.gistree.db_con.lib.classes.models;
 
-import com.example.gistree.db_con.lib.interfaces.Item;
+import com.example.gistree.db_con.lib.classes.interfaces.Item;
 
 import org.json.JSONException;
 import org.json.JSONObject;

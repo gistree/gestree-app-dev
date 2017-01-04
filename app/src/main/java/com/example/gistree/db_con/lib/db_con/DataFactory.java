@@ -3,15 +3,13 @@ package com.example.gistree.db_con.lib.db_con;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Environment;
 
 import com.example.gistree.db_con.lib.classes.Helper;
-import com.example.gistree.db_con.lib.interfaces.Item;
-import com.example.gistree.db_con.lib.interfaces.Table;
+import com.example.gistree.db_con.lib.classes.interfaces.Item;
+import com.example.gistree.db_con.lib.classes.interfaces.Table;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 public class DataFactory {
 
@@ -19,7 +17,10 @@ public class DataFactory {
     private DataBaseConnection dbCon;
 
     public DataFactory(Context context) {
-        dbCon = new DataBaseConnection(context, Helper.getMetaData(context,"Database_Name"), Helper.getMetaData(context,"Database_Path"));
+        // DEVELOPMENT CODE
+        // TODO:
+        //dbCon = new DataBaseConnection(context, Helper.getMetaData(context, "Database_Name"), Helper.getMetaData(context, "Database_Path"));
+        dbCon = new DataBaseConnection(context, Helper.getMetaData(context, "Database_Path_DEV") + Helper.getMetaData(context,"Database_Name"), Helper.getMetaData(context,"Database_Path_DEV"));
         try {
             dbCon.createDataBase();
         } catch (IOException e) {
@@ -98,14 +99,24 @@ public class DataFactory {
         return updateSuccessful;
     }
 
-//    public Timestamp getLastTimestamp(){
-//        Timestamp t = null;
-//        long lastTimestamp = 0;
-//        Cursor cursor = db.query(, null, DBCon.COLUMN_TIMESTAMP, null, null, null, "id DESC", "1");
-//        if (cursor != null && cursor.moveToFirst()) {
-//            lastTimestamp = cursorToTimestamp(cursor);
-//            cursor.close();
-//        }
-//        return t;
-//    }
+    public Item getItemByID(Table t, long id){
+        Item returnItem = null;
+        Cursor cursor = db.query(t.getTableName(),t.getAllColumns(),t.getIdColumn() + " = " + id, null, null, null, null, null);
+        if(cursor != null && cursor.moveToFirst()){
+            returnItem = t.cursorToItem(cursor);
+            cursor.close();
+        }
+        return returnItem;
+    }
+
+    public Item getLastRecord(Table t){
+        Item returnItem = null;
+        Cursor cursor = db.query(t.getTableName(), t.getAllColumns(), null, null, null, null, t.getIdColumn() + " DESC", "1");
+        if(cursor != null && cursor.moveToFirst()){
+            returnItem = t.cursorToItem(cursor);
+            cursor.close();
+        }
+        return returnItem;
+    }
+
 }

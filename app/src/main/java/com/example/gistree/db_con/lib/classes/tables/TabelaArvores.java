@@ -4,8 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.example.gistree.db_con.lib.classes.models.Arvore;
-import com.example.gistree.db_con.lib.interfaces.Item;
-import com.example.gistree.db_con.lib.interfaces.Table;
+import com.example.gistree.db_con.lib.classes.interfaces.Item;
+import com.example.gistree.db_con.lib.classes.interfaces.Table;
 
 /**
  * Created by henrique on 21-12-2016.

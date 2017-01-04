@@ -2,12 +2,15 @@ package com.example.gistree.db_con;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.example.gistree.db_con.lib.classes.Helper;
 import com.example.gistree.db_con.lib.classes.models.Arvore;
+import com.example.gistree.db_con.lib.classes.models.TimestampModel;
+import com.example.gistree.db_con.lib.classes.tables.SyncTimestampTable;
 import com.example.gistree.db_con.lib.controllers.ButtonControllers;
 import com.example.gistree.db_con.lib.db_con.DataFactory;
 
@@ -32,18 +35,18 @@ public class MainActivity extends AppCompatActivity {
         Helper.setupUI(findViewById(R.id.activity_main), MainActivity.this);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        ButtonControllers btc = new ButtonControllers();
-        Button btEcho = (Button) findViewById(R.id.btEcho);
-        Button btSync = (Button) findViewById(R.id.btEnviar);
-        btEcho.setOnClickListener(btc);
-        btSync.setOnClickListener(btc);
-
         db = new DataFactory(this);
         try {
             db.open();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        ButtonControllers btc = new ButtonControllers(db);
+        Button btEcho = (Button) findViewById(R.id.btEcho);
+        Button btSync = (Button) findViewById(R.id.btEnviar);
+        btEcho.setOnClickListener(btc);
+        btSync.setOnClickListener(btc);
 
 //        ListView listView = (ListView) findViewById(android.R.id.list);
 //        values = db.arvoresToShow(db.getAllArvores(), db.getAllLogs());
