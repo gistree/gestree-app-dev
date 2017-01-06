@@ -9,7 +9,7 @@ public class UpdateActivity extends AppCompatActivity {
 //    DataFactory db;
 //    int position;
 //    String species;
-//    ArvoreRecord arvore;
+//    RecordArvore arvore;
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class UpdateActivity extends AppCompatActivity {
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-//        arvore = (ArvoreRecord) getIntent().getBundleExtra("tree").getSerializable("tree");
+//        arvore = (RecordArvore) getIntent().getBundleExtra("tree").getSerializable("tree");
 //        textView_id_tree = (TextView) findViewById(R.id.textView_updateIdTree);
 //        editText_species = (EditText) findViewById(R.id.editText_updateSpecies);
 //        long id_tree = arvore.getId();
@@ -33,7 +33,7 @@ public class UpdateActivity extends AppCompatActivity {
 //    }
 //
 //    protected void updateArvore(View v) {
-//        ArvoreRecord arvoreToUpdate = new ArvoreRecord();
+//        RecordArvore arvoreToUpdate = new RecordArvore();
 //        arvoreToUpdate.setId(arvore.getId());
 //        arvoreToUpdate.setSpecies(editText_species.getText().toString());
 //        arvoreToUpdate.setId_sync(arvore.getId_sync());

@@ -3,7 +3,7 @@ package com.example.gistree.db_con.lib.networking;
 import android.content.Context;
 
 import com.example.gistree.db_con.lib.classes.Metadata;
-import com.example.gistree.db_con.lib.classes.records.ArvoreRecord;
+import com.example.gistree.db_con.lib.classes.records.RecordArvore;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ public class Request {
 
     private Context ct;
     private String requestType;
-    private ArrayList<ArvoreRecord> arvoreRecords;
+    private ArrayList<RecordArvore> recordArvores;
     private String url;
     private String timestamp;
 
@@ -33,20 +33,20 @@ public class Request {
         this.requestType = requestType;
         this.timestamp = timestamp;
     }
-    public Request(Context ct, String url, String requestType, String timestamp, ArrayList<ArvoreRecord> arvoreRecords) {
+    public Request(Context ct, String url, String requestType, String timestamp, ArrayList<RecordArvore> recordArvores) {
         this.ct = ct;
         this.url = url;
         this.requestType = requestType;
         this.timestamp = timestamp;
-        this.arvoreRecords = arvoreRecords;
+        this.recordArvores = recordArvores;
     }
 
     public JSONObject getData() throws Exception {
         JSONObject json = new JSONObject();
         try {
             json.put("timestamp", this.timestamp);
-            for (ArvoreRecord arvoreRecord : this.arvoreRecords) {
-                json.accumulate("data", arvoreRecord.toJSONObject());
+            for (RecordArvore recordArvore : this.recordArvores) {
+                json.accumulate("data", recordArvore.toJSONObject());
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -70,9 +70,9 @@ public class Request {
         }
         return result.toString();
     }
-    public void setData(ArrayList<ArvoreRecord> arvoreRecords, String timestamp) {
+    public void setData(ArrayList<RecordArvore> recordArvores, String timestamp) {
         this.timestamp = timestamp;
-        this.arvoreRecords = arvoreRecords;
+        this.recordArvores = recordArvores;
     }
     public String getRequestType() {
         return requestType;

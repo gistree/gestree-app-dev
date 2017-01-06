@@ -1,12 +1,12 @@
 package com.example.gistree.db_con.lib.classes.records;
 
-public class LogRecord extends ArvoreRecord implements RecordInterface {
+public class RecordLogArvore extends RecordArvore implements RecordInterface {
 
     private long id_sync;
     private char action;
 
-    public LogRecord(){}
-    public LogRecord(ArvoreRecord arv, char action) throws Exception {
+    public RecordLogArvore(){}
+    public RecordLogArvore(RecordArvore arv, char action) throws Exception {
         super(arv);
         this.setAction(action);
     }

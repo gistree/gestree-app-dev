@@ -4,13 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
 import com.example.gistree.db_con.lib.classes.records.RecordInterface;
-import com.example.gistree.db_con.lib.classes.records.LogRecord;
 import com.example.gistree.db_con.lib.database.DataFactory;
 
 import java.util.ArrayList;
 
-public class LogRepository extends ArvoresRepository {
+public class RepositoryLogArvores extends RepositoryArvores {
 
     private DataFactory db = super.getDatafactory();
 
@@ -19,18 +19,18 @@ public class LogRepository extends ArvoresRepository {
     protected final String COLUMN_IDSYNC = "id_sync";
     protected final String COLUMN_ACTION = "action";
 
-    public LogRepository(Context c) {
+    public RepositoryLogArvores(Context c) {
         super(c);
     }
 
-    public LogRecord saveLogTree(LogRecord logRecord) throws Exception {
-        return (LogRecord) db.insert(this, logRecord);
+    public RecordLogArvore saveLogTree(RecordLogArvore logRecord) throws Exception {
+        return (RecordLogArvore) db.insert(this, logRecord);
     }
 
     @Override
     public ContentValues values(RecordInterface i) {
         ContentValues values = super.values(i);
-        LogRecord logRecord = (LogRecord) i;
+        RecordLogArvore logRecord = (RecordLogArvore) i;
         values.put(this.COLUMN_IDTREE, logRecord.getId_tree());
         values.put(this.COLUMN_ACTION, Character.toString(logRecord.getAction()));
         return values;
@@ -52,7 +52,7 @@ public class LogRepository extends ArvoresRepository {
     }
     @Override
     public RecordInterface cursorToItem(Cursor cursor) throws Exception {
-        LogRecord logRecord = new LogRecord();
+        RecordLogArvore logRecord = new RecordLogArvore();
         logRecord.setId_sync(cursor.getLong(cursor.getColumnIndex(this.COLUMN_IDSYNC)));
         logRecord.setId_tree(cursor.getLong(cursor.getColumnIndex(super.COLUMN_IDTREE)));
         logRecord.setTimestamp(cursor.getString(cursor.getColumnIndex(super.COLUMN_TIMESTAMP)));

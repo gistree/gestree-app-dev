@@ -5,9 +5,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.gistree.db_con.R;
-import com.example.gistree.db_con.lib.classes.records.ArvoreRecord;
-import com.example.gistree.db_con.lib.classes.records.TimestampRecord;
-import com.example.gistree.db_con.lib.classes.repositories.TimestampRepository;
+import com.example.gistree.db_con.lib.classes.records.RecordArvore;
+import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
+import com.example.gistree.db_con.lib.classes.repositories.RepositoryTimestamp;
 import com.example.gistree.db_con.lib.networking.HttpTest;
 import com.example.gistree.db_con.lib.networking.Request;
 import com.example.gistree.db_con.lib.networking.ServerAsyncResponse;
@@ -36,17 +36,17 @@ public class ButtonControllers implements View.OnClickListener {
                 }).execute(req);
                 break;
             case R.id.btEnviar:
-                ArvoreRecord arv1 = new ArvoreRecord();
+                RecordArvore arv1 = new RecordArvore();
                 arv1.setId(1);
                 arv1.setSpecies("Pinus");
-                ArvoreRecord arv2 = new ArvoreRecord();
+                RecordArvore arv2 = new RecordArvore();
                 arv2.setId(2);
                 arv2.setSpecies("Pinus2");
-                ArrayList<ArvoreRecord> arvs = new ArrayList<>();
+                ArrayList<RecordArvore> arvs = new ArrayList<>();
                 arvs.add(arv1);
                 arvs.add(arv2);
-                TimestampRepository tdf = new TimestampRepository(context);
-                TimestampRecord tsm = tdf.getLastTimestamp();
+                RepositoryTimestamp tdf = new RepositoryTimestamp(context);
+                RecordTimestamp tsm = tdf.getLastTimestamp();
                 req = new Request(v.getContext(), "post_test", "POST", tsm.getTimestamp(), arvs);
                 new HttpTest(new ServerAsyncResponse() {
                     @Override

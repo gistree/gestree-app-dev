@@ -3,13 +3,13 @@ package com.example.gistree.db_con.lib.classes.records;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ArvoreRecord implements RecordInterface {
+public class RecordArvore implements RecordInterface {
     private long id_tree;
     private String species;
     private String timestamp;
 
-    public ArvoreRecord(){}
-    public ArvoreRecord(ArvoreRecord arv){
+    public RecordArvore(){}
+    public RecordArvore(RecordArvore arv){
         this.id_tree = arv.getId_tree();
         this.species = arv.getSpecies();
         this.timestamp = arv.getTimestamp();

@@ -4,13 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.example.gistree.db_con.lib.classes.records.TimestampRecord;
+import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
 import com.example.gistree.db_con.lib.classes.records.RecordInterface;
 import com.example.gistree.db_con.lib.database.DataFactory;
 
 import java.util.ArrayList;
 
-public class TimestampRepository implements RepositoryInterface {
+public class RepositoryTimestamp implements RepositoryInterface {
 
     private Context myContext;
     private DataFactory db = new DataFactory(this.myContext);
@@ -19,26 +19,26 @@ public class TimestampRepository implements RepositoryInterface {
     private static String COLUMN_ID = "id";
     private static String COLUMN_TIMESTAMP = "timestamp";
 
-    public TimestampRepository(Context c) {
+    public RepositoryTimestamp(Context c) {
         this.myContext = c;
     }
 
-    public TimestampRecord saveTimestamp(TimestampRecord r){
-        TimestampRecord rec = null;
+    public RecordTimestamp saveTimestamp(RecordTimestamp r){
+        RecordTimestamp rec = null;
         try {
-            rec = (TimestampRecord) db.insert(this, r);
+            rec = (RecordTimestamp) db.insert(this, r);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return rec;
     }
-    public TimestampRecord getLastTimestamp(){
-        return (TimestampRecord) db.getLast(this);
+    public RecordTimestamp getLastTimestamp(){
+        return (RecordTimestamp) db.getLast(this);
     }
 
     @Override
     public ContentValues values(RecordInterface i) {
-        TimestampRecord tsm = (TimestampRecord) i;
+        RecordTimestamp tsm = (RecordTimestamp) i;
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, tsm.getId());
         values.put(COLUMN_TIMESTAMP, tsm.getTimestamp());
@@ -61,7 +61,7 @@ public class TimestampRepository implements RepositoryInterface {
     }
     @Override
     public RecordInterface cursorToItem(Cursor cursor) {
-        TimestampRecord tsm = new TimestampRecord();
+        RecordTimestamp tsm = new RecordTimestamp();
         tsm.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)));
         tsm.setTimestamp(cursor.getString(cursor.getColumnIndex(COLUMN_TIMESTAMP)));
         return tsm;

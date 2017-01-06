@@ -3,7 +3,7 @@ package com.example.gistree.db_con.lib.classes.records;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class TimestampRecord implements RecordInterface {
+public class RecordTimestamp implements RecordInterface {
 
     private long id;
     private String timestamp;

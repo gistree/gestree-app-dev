@@ -4,14 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.example.gistree.db_con.lib.classes.records.ArvoreRecord;
+import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
+import com.example.gistree.db_con.lib.classes.records.RecordArvore;
 import com.example.gistree.db_con.lib.classes.records.RecordInterface;
-import com.example.gistree.db_con.lib.classes.records.LogRecord;
 import com.example.gistree.db_con.lib.database.DataFactory;
 
 import java.util.ArrayList;
 
-public class ArvoresRepository implements RepositoryInterface {
+public class RepositoryArvores implements RepositoryInterface {
 
     private Context myContext;
     private DataFactory db;
@@ -22,7 +22,7 @@ public class ArvoresRepository implements RepositoryInterface {
     protected final String COLUMN_SPECIES = "species";
     protected final String COLUMN_TIMESTAMP = "timestamp";
 
-    public ArvoresRepository(Context c) {
+    public RepositoryArvores(Context c) {
         this.db = new DataFactory(c);
     }
 
@@ -30,13 +30,13 @@ public class ArvoresRepository implements RepositoryInterface {
         return this.db;
     }
 
-    public ArvoreRecord saveArvore(ArvoreRecord a){
-        ArvoreRecord arv = null;
+    public RecordArvore saveArvore(RecordArvore a){
+        RecordArvore arv = null;
         db.startTransaction();
         try {
-            arv = (ArvoreRecord) db.insert(this, a);
-            LogRepository lgf = new LogRepository(myContext);
-            LogRecord logtree = new LogRecord(arv, 'I');
+            arv = (RecordArvore) db.insert(this, a);
+            RepositoryLogArvores lgf = new RepositoryLogArvores(myContext);
+            RecordLogArvore logtree = new RecordLogArvore(arv, 'I');
             lgf.saveLogTree(logtree);
             db.commitTransaction();
         } catch (Exception e) {
@@ -48,7 +48,7 @@ public class ArvoresRepository implements RepositoryInterface {
 
     @Override
     public ContentValues values(RecordInterface i){
-        ArvoreRecord arv = (ArvoreRecord) i;
+        RecordArvore arv = (RecordArvore) i;
         ContentValues values = new ContentValues();
         values.put(this.COLUMN_IDTREE, arv.getId());
         values.put(this.COLUMN_SPECIES, arv.getSpecies());
@@ -73,7 +73,7 @@ public class ArvoresRepository implements RepositoryInterface {
     }
     @Override
     public RecordInterface cursorToItem(Cursor cursor) throws Exception {
-        ArvoreRecord arv = new ArvoreRecord();
+        RecordArvore arv = new RecordArvore();
         arv.setId_tree(cursor.getLong(cursor.getColumnIndex(this.COLUMN_IDTREE)));
         arv.setTimestamp(cursor.getString(cursor.getColumnIndex(this.COLUMN_TIMESTAMP)));
         arv.setSpecies(cursor.getString(cursor.getColumnIndex(this.COLUMN_SPECIES)));
