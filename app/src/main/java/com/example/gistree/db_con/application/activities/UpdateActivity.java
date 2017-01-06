@@ -1,19 +1,6 @@
-package com.example.gistree.db_con;
+package com.example.gistree.db_con.application.activities;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import com.example.gistree.db_con.lib.classes.Helper;
-import com.example.gistree.db_con.lib.classes.models.Arvore;
-import com.example.gistree.db_con.lib.db_con.DataFactory;
-
-import java.sql.SQLException;
 
 public class UpdateActivity extends AppCompatActivity {
 
@@ -22,7 +9,7 @@ public class UpdateActivity extends AppCompatActivity {
 //    DataFactory db;
 //    int position;
 //    String species;
-//    Arvore arvore;
+//    ArvoreRecord arvore;
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +22,7 @@ public class UpdateActivity extends AppCompatActivity {
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-//        arvore = (Arvore) getIntent().getBundleExtra("tree").getSerializable("tree");
+//        arvore = (ArvoreRecord) getIntent().getBundleExtra("tree").getSerializable("tree");
 //        textView_id_tree = (TextView) findViewById(R.id.textView_updateIdTree);
 //        editText_species = (EditText) findViewById(R.id.editText_updateSpecies);
 //        long id_tree = arvore.getId();
@@ -46,7 +33,7 @@ public class UpdateActivity extends AppCompatActivity {
 //    }
 //
 //    protected void updateArvore(View v) {
-//        Arvore arvoreToUpdate = new Arvore();
+//        ArvoreRecord arvoreToUpdate = new ArvoreRecord();
 //        arvoreToUpdate.setId(arvore.getId());
 //        arvoreToUpdate.setSpecies(editText_species.getText().toString());
 //        arvoreToUpdate.setId_sync(arvore.getId_sync());
@@ -80,7 +67,7 @@ public class UpdateActivity extends AppCompatActivity {
 //        if (!(view instanceof EditText)) {
 //            view.setOnTouchListener(new View.OnTouchListener() {
 //                public boolean onTouch(View v, MotionEvent event) {
-//                    Helper.hideSoftKeyboard(UpdateActivity.this);
+//                    Metadata.hideSoftKeyboard(UpdateActivity.this);
 //                    return false;
 //                }
 //            });

@@ -1,29 +1,25 @@
-package com.example.gistree.db_con.lib.controllers;
+package com.example.gistree.db_con.application.controllers;
 
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Context;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.gistree.db_con.R;
-import com.example.gistree.db_con.lib.classes.models.Arvore;
-import com.example.gistree.db_con.lib.classes.models.TimestampModel;
-import com.example.gistree.db_con.lib.classes.tables.SyncTimestampTable;
-import com.example.gistree.db_con.lib.db_con.DataFactory;
+import com.example.gistree.db_con.lib.classes.records.ArvoreRecord;
+import com.example.gistree.db_con.lib.classes.records.TimestampRecord;
+import com.example.gistree.db_con.lib.classes.repositories.TimestampRepository;
 import com.example.gistree.db_con.lib.networking.HttpTest;
 import com.example.gistree.db_con.lib.networking.Request;
 import com.example.gistree.db_con.lib.networking.ServerAsyncResponse;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class ButtonControllers implements View.OnClickListener {
 
-    private DataFactory db;
+    private Context context;
 
-    public ButtonControllers(DataFactory db){
-        this.db = db;
+    public ButtonControllers(Context c){
+        this.context = c;
     }
 
     @Override
@@ -40,17 +36,17 @@ public class ButtonControllers implements View.OnClickListener {
                 }).execute(req);
                 break;
             case R.id.btEnviar:
-                Arvore arv1 = new Arvore();
+                ArvoreRecord arv1 = new ArvoreRecord();
                 arv1.setId(1);
                 arv1.setSpecies("Pinus");
-                Arvore arv2 = new Arvore();
+                ArvoreRecord arv2 = new ArvoreRecord();
                 arv2.setId(2);
                 arv2.setSpecies("Pinus2");
-                ArrayList<Arvore> arvs = new ArrayList<>();
+                ArrayList<ArvoreRecord> arvs = new ArrayList<>();
                 arvs.add(arv1);
                 arvs.add(arv2);
-                SyncTimestampTable sync = new SyncTimestampTable();
-                TimestampModel tsm = (TimestampModel) db.getLastRecord(sync);
+                TimestampRepository tdf = new TimestampRepository(context);
+                TimestampRecord tsm = tdf.getLastTimestamp();
                 req = new Request(v.getContext(), "post_test", "POST", tsm.getTimestamp(), arvs);
                 new HttpTest(new ServerAsyncResponse() {
                     @Override

@@ -2,8 +2,8 @@ package com.example.gistree.db_con.lib.networking;
 
 import android.content.Context;
 
-import com.example.gistree.db_con.lib.classes.Helper;
-import com.example.gistree.db_con.lib.classes.models.Arvore;
+import com.example.gistree.db_con.lib.classes.Metadata;
+import com.example.gistree.db_con.lib.classes.records.ArvoreRecord;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ public class Request {
 
     private Context ct;
     private String requestType;
-    private ArrayList<Arvore> arvores;
+    private ArrayList<ArvoreRecord> arvoreRecords;
     private String url;
     private String timestamp;
 
@@ -33,20 +33,20 @@ public class Request {
         this.requestType = requestType;
         this.timestamp = timestamp;
     }
-    public Request(Context ct, String url, String requestType, String timestamp, ArrayList<Arvore> arvores) {
+    public Request(Context ct, String url, String requestType, String timestamp, ArrayList<ArvoreRecord> arvoreRecords) {
         this.ct = ct;
         this.url = url;
         this.requestType = requestType;
         this.timestamp = timestamp;
-        this.arvores = arvores;
+        this.arvoreRecords = arvoreRecords;
     }
 
     public JSONObject getData() throws Exception {
         JSONObject json = new JSONObject();
         try {
             json.put("timestamp", this.timestamp);
-            for (Arvore arvore: this.arvores) {
-                json.accumulate("data", arvore.toJSONObject());
+            for (ArvoreRecord arvoreRecord : this.arvoreRecords) {
+                json.accumulate("data", arvoreRecord.toJSONObject());
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -70,9 +70,9 @@ public class Request {
         }
         return result.toString();
     }
-    public void setData(ArrayList<Arvore> arvores, String timestamp) {
+    public void setData(ArrayList<ArvoreRecord> arvoreRecords, String timestamp) {
         this.timestamp = timestamp;
-        this.arvores = arvores;
+        this.arvoreRecords = arvoreRecords;
     }
     public String getRequestType() {
         return requestType;
@@ -81,7 +81,7 @@ public class Request {
         this.requestType = requestType;
     }
     public URL getUrl() throws MalformedURLException {
-        URL url = new URL(Helper.getAPIUrl(this.ct)+this.url);
+        URL url = new URL(Metadata.getAPIUrl(this.ct)+this.url);
         return url;
     }
     public void setUrl(String URL_String) {

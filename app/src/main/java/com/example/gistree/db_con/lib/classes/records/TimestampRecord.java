@@ -1,11 +1,9 @@
-package com.example.gistree.db_con.lib.classes.models;
-
-import com.example.gistree.db_con.lib.classes.interfaces.Item;
+package com.example.gistree.db_con.lib.classes.records;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class TimestampModel implements Item {
+public class TimestampRecord implements RecordInterface {
 
     private long id;
     private String timestamp;
