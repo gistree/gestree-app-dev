@@ -1,27 +1,34 @@
-package com.example.gistree.db_con.db_con;
+package com.example.gistree.db_con.lib.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.example.gistree.db_con.lib.classes.Metadata;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-/**
- * Created by henrique on 21-12-2016.
- */
-
 public class DataBaseConnection extends SQLiteOpenHelper {
 
     private Context myContext;
-    private String DB_PATH;
+    private static DataBaseConnection sInstance;
 
-    public DataBaseConnection(Context context, String DB_NAME, String DB_PATH) {
-        super(context, DB_NAME, null, 1);
+    public static synchronized DataBaseConnection getInstance(Context context) {
+        if (sInstance == null) {
+            Log.e("MY_DEBBUG", "CHEGUEI AQUI");
+            sInstance = new DataBaseConnection(context);
+        }
+        return sInstance;
+    }
+
+    private DataBaseConnection(Context context) {
+        super(context, Metadata.getDatabasePath(context) + Metadata.getDatabaseName(context), null, 1);
         this.myContext = context;
-        this.DB_PATH = DB_PATH;
     }
 
     public void createDataBase() throws IOException {
@@ -41,7 +48,10 @@ public class DataBaseConnection extends SQLiteOpenHelper {
     private boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
         try {
-            String myPath = DB_PATH + getDatabaseName();
+            //String myPath = Metadata.getMetaData(myContext,"Database_Path") + getDatabaseName();
+            // DEVELOPMENT CODE
+            // TODO
+            String myPath = this.getDatabaseName();
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
         } catch (SQLiteException e) {
             //database does't exist yet.
@@ -53,8 +63,14 @@ public class DataBaseConnection extends SQLiteOpenHelper {
     }
 
     private void copyDataBase() throws IOException {
-        InputStream myInput = myContext.getAssets().open(getDatabaseName());
-        String outFileName = DB_PATH + getDatabaseName();
+        // DEVELOPMENT CODE
+        // TODO - Uncomment next line
+        // InputStream myInput = myContext.getAssets().open(getDatabaseName());
+        InputStream myInput = myContext.getAssets().open("testeArvore.db");
+        // DEVELOPMENT CODE
+        // TODO
+        //String outFileName = Metadata.getMetaData(myContext,"Database_Path_DEV") + getDatabaseName();
+        String outFileName = this.getDatabaseName();
         OutputStream myOutput = new FileOutputStream(outFileName);
         byte[] buffer = new byte[1024];
         int length;
@@ -68,11 +84,11 @@ public class DataBaseConnection extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        Log.d("GesTree::DataBase", "Database Created");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        Log.d("GesTree::DataBase", "Database Updated");
     }
 }
