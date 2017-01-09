@@ -24,10 +24,16 @@ public class RepositoryArvores implements RepositoryInterface {
 
     public RepositoryArvores(Context c) {
         this.db = new DataFactory(c);
+        this.myContext = c;
     }
 
     public DataFactory getDatafactory(){
         return this.db;
+    }
+
+    @SuppressWarnings("unchecked")
+    public ArrayList<RecordArvore> getAllArvores(){
+        return (ArrayList<RecordArvore>) db.getAllRecords(this);
     }
 
     public RecordArvore saveArvore(RecordArvore a){

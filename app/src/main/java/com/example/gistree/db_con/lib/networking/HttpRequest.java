@@ -14,33 +14,19 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Request {
+public class HttpRequest {
 
     private Context ct;
     private String requestType;
-    private ArrayList<RecordArvore> recordArvores;
     private String url;
-    private String timestamp;
 
-    public Request(Context ct, String url, String requestType) {
+    public HttpRequest(Context ct, String url, String requestType) {
         this.ct = ct;
         this.url = url;
         this.requestType = requestType;
-    }
-    public Request(Context ct, String url, String requestType, String timestamp){
-        this.ct = ct;
-        this.url = url;
-        this.requestType = requestType;
-        this.timestamp = timestamp;
-    }
-    public Request(Context ct, String url, String requestType, String timestamp, ArrayList<RecordArvore> recordArvores) {
-        this.ct = ct;
-        this.url = url;
-        this.requestType = requestType;
-        this.timestamp = timestamp;
-        this.recordArvores = recordArvores;
     }
 
+    /*
     public JSONObject getData() throws Exception {
         JSONObject json = new JSONObject();
         try {
@@ -74,18 +60,6 @@ public class Request {
         this.timestamp = timestamp;
         this.recordArvores = recordArvores;
     }
-    public String getRequestType() {
-        return requestType;
-    }
-    public void setRequestType(String requestType) {
-        this.requestType = requestType;
-    }
-    public URL getUrl() throws MalformedURLException {
-        URL url = new URL(Metadata.getAPIUrl(this.ct)+this.url);
-        return url;
-    }
-    public void setUrl(String URL_String) {
-        this.url = url;
-    }
+    */
 
 }

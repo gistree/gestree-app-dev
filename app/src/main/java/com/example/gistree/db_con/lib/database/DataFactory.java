@@ -9,11 +9,12 @@ import com.example.gistree.db_con.lib.classes.records.RecordInterface;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DataFactory {
 
     private SQLiteDatabase db;
-    private DataBaseConnection dbCon;
+    private final DataBaseConnection dbCon;
 
     public DataFactory(Context context) {
         // DEVELOPMENT CODE
@@ -32,7 +33,7 @@ public class DataFactory {
         }
     }
 
-    public void open() throws SQLException {
+    private void open() throws SQLException {
         db = dbCon.getWritableDatabase();
     }
 
@@ -40,25 +41,42 @@ public class DataFactory {
         dbCon.close();
     }
 
-    public RecordInterface insert (RepositoryInterface t, RecordInterface i) throws Exception {
+    public RecordInterface insert (RepositoryInterface repo, RecordInterface i) throws Exception {
         long insertId;
         RecordInterface returnRecordInterface = null;
-        insertId = db.insertOrThrow(t.getTableName(), null, t.values(i));
-        Cursor cursor = db.query(t.getTableName(), t.getAllColumns().toArray(new String[0]), t.getIdColumn() + " = "
+        insertId = db.insertOrThrow(repo.getTableName(), null, repo.values(i));
+        Cursor cursor = db.query(repo.getTableName(), repo.getAllColumns().toArray(new String[0]), repo.getIdColumn() + " = "
                 + insertId, null, null, null, null);
         if(cursor != null && cursor.moveToFirst()) {
-            returnRecordInterface = t.cursorToItem(cursor);
+            returnRecordInterface = repo.cursorToItem(cursor);
             cursor.close();
         }
         return returnRecordInterface;
     }
 
-    public RecordInterface get(RepositoryInterface t, long id){
-        RecordInterface returnRecordInterface = null;
-        Cursor cursor = db.query(t.getTableName(), t.getAllColumns().toArray(new String[0]),t.getIdColumn() + " = " + id, null, null, null, null, null);
+    public ArrayList<? extends RecordInterface> getAllRecords(RepositoryInterface repo) {
+        ArrayList<RecordInterface> listRecord = new ArrayList<>();
+        Cursor cursor = db.query(repo.getTableName(), repo.getAllColumns().toArray(new String[0]), null, null, null, null, null);
         if(cursor != null && cursor.moveToFirst()){
             try {
-                returnRecordInterface = t.cursorToItem(cursor);
+                while (!cursor.isAfterLast()){
+                    listRecord.add(repo.cursorToItem(cursor));
+                    cursor.moveToNext();
+                }
+                cursor.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return listRecord;
+    }
+    
+    public RecordInterface get(RepositoryInterface repo, long id){
+        RecordInterface returnRecordInterface = null;
+        Cursor cursor = db.query(repo.getTableName(), repo.getAllColumns().toArray(new String[0]),repo.getIdColumn() + " = " + id, null, null, null, null, null);
+        if(cursor != null && cursor.moveToFirst()){
+            try {
+                returnRecordInterface = repo.cursorToItem(cursor);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -67,12 +85,12 @@ public class DataFactory {
         return returnRecordInterface;
     }
 
-    public boolean update (RepositoryInterface t, RecordInterface i) {
+    public boolean update (RepositoryInterface repo, RecordInterface i) {
         boolean updateSuccessful = false;
         long updatedRows = 0;
         db.beginTransaction();
         try {
-            updatedRows = db.update(t.getTableName(), t.values(i), t.getIdColumn() + " = " + i.getId(), null);
+            updatedRows = db.update(repo.getTableName(), repo.values(i), repo.getIdColumn() + " = " + i.getId(), null);
             db.setTransactionSuccessful();
         }
         catch (Exception e) {
@@ -87,12 +105,12 @@ public class DataFactory {
         return updateSuccessful;
     }
 
-    public boolean delete (RepositoryInterface t, RecordInterface i){
+    public boolean delete (RepositoryInterface repo, RecordInterface i){
         boolean deleteSuccessful = false;
         long deletedRows = 0;
         db.beginTransaction();
         try {
-            deletedRows = db.delete(t.getTableName(), t.getIdColumn() + " = " + i.getId(), null);
+            deletedRows = db.delete(repo.getTableName(), repo.getIdColumn() + " = " + i.getId(), null);
             db.setTransactionSuccessful();
         }
         catch (Exception e) {
@@ -119,12 +137,12 @@ public class DataFactory {
         db.setTransactionSuccessful();
     }
 
-    public RecordInterface getLast(RepositoryInterface t){
+    public RecordInterface getLast(RepositoryInterface repo){
         RecordInterface returnRecordInterface = null;
-        Cursor cursor = db.query(t.getTableName(), t.getAllColumns().toArray(new String[0]), null, null, null, null, t.getIdColumn() + " DESC", "1");
+        Cursor cursor = db.query(repo.getTableName(), repo.getAllColumns().toArray(new String[0]), null, null, null, null, repo.getIdColumn() + " DESC", "1");
         if(cursor != null && cursor.moveToFirst()){
             try {
-                returnRecordInterface = t.cursorToItem(cursor);
+                returnRecordInterface = repo.cursorToItem(cursor);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -132,5 +150,5 @@ public class DataFactory {
         }
         return returnRecordInterface;
     }
-
+    
 }

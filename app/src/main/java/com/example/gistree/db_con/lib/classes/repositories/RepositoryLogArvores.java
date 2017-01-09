@@ -27,6 +27,11 @@ public class RepositoryLogArvores extends RepositoryArvores {
         return (RecordLogArvore) db.insert(this, logRecord);
     }
 
+    @SuppressWarnings("unchecked")
+    public ArrayList<RecordLogArvore> getAllLogs() {
+        return (ArrayList<RecordLogArvore>) db.getAllRecords(this);
+    }
+
     @Override
     public ContentValues values(RecordInterface i) {
         ContentValues values = super.values(i);
@@ -60,4 +65,5 @@ public class RepositoryLogArvores extends RepositoryArvores {
         logRecord.setAction(cursor.getString(cursor.getColumnIndex(this.COLUMN_ACTION)).charAt(0));
         return logRecord;
     }
+
 }
