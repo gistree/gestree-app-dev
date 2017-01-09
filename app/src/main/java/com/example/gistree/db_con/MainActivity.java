@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         //new HttpConnection().execute(new HttpRequest(getApplicationContext(),url+"echo/estou_vivo", "GET"));
 
-        Log.e("END", "END");
+        //Log.e("END", "END");
 
 
 //        ListView listView = (ListView) findViewById(android.R.id.list);
