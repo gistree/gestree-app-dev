@@ -45,13 +45,14 @@ public class MainActivity extends AppCompatActivity {
         Helper.setupUI(findViewById(R.id.activity_main), MainActivity.this);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        /*
         ButtonControllers btc = new ButtonControllers(getApplicationContext());
         Button btEcho = (Button) findViewById(R.id.btEcho);
+        Button btTest = (Button) findViewById(R.id.btTeste);
         Button btSync = (Button) findViewById(R.id.btEnviar);
+
         btEcho.setOnClickListener(btc);
+        btTest.setOnClickListener(btc);
         btSync.setOnClickListener(btc);
-        */
 
         RepositoryLogArvores repoLog = new RepositoryLogArvores(getApplicationContext());
         ArrayList<RecordLogArvore> aLogs = repoLog.getAllLogs();

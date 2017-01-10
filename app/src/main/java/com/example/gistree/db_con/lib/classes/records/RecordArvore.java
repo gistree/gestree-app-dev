@@ -49,7 +49,7 @@ public class RecordArvore implements RecordInterface {
     public JSONObject toJSONObject() {
         JSONObject json = new JSONObject();
         try {
-            json.put("id", this.id_tree);
+            json.put("id_tree", this.id_tree);
             json.put("species", this.species);
             json.put("timestamp", this.timestamp);
         } catch (JSONException e) {

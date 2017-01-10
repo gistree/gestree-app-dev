@@ -31,6 +31,9 @@ public class RepositoryLogArvores extends RepositoryArvores {
     public ArrayList<RecordLogArvore> getAllLogs() {
         return (ArrayList<RecordLogArvore>) db.getAllRecords(this);
     }
+    public int truncateTableLogs(){
+        return db.truncate(this);
+    }
 
     @Override
     public ContentValues values(RecordInterface i) {

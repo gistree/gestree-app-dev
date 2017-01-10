@@ -1,5 +1,8 @@
 package com.example.gistree.db_con.lib.classes.records;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class RecordLogArvore extends RecordArvore implements RecordInterface {
 
     private long id_sync;
@@ -51,4 +54,17 @@ public class RecordLogArvore extends RecordArvore implements RecordInterface {
         }
     }
 
+    @Override
+    public JSONObject toJSONObject() {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("id_tree", this.getId_tree());
+            json.put("species", this.getSpecies());
+            json.put("timestamp", this.getTimestamp());
+            json.put("action", String.valueOf(this.action));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
 }

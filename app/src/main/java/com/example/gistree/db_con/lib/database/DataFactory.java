@@ -125,6 +125,10 @@ public class DataFactory {
         return deleteSuccessful;
     }
 
+    public int truncate (RepositoryInterface repo){
+        return db.delete(repo.getTableName(), "1", null);
+    }
+
     public void startTransaction(){
         db.beginTransaction();
     }
