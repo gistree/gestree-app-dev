@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">DB_CON</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="cenas">
+        <item>cenas</item>.
+        <item>batatas</item>
+        <item>cenas</item>
+        <item>jorge</item>
+        <item>ah</item>
+        <item>pois</item>
+        <item>o que</item>
+        <item>tu</item>
+        <item>queres</item>
+        <item>sei</item>
+        <item>eu</item>
+        <item>lolololololololololol</item>
+    </string-array>
 </resources>

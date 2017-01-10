@@ -36,7 +36,11 @@
 
         <activity android:name=".application.activities.cortantes.FormActivity" />
         <activity android:name=".application.activities.CMenuActivity" />
-        <activity android:name=".application.activities.cortantes.MultiSpinners"></activity>
+        <activity android:name=".application.activities.cortantes.MultiSpinners" />
+        <activity android:name=".application.activities.cortantes.SearchableSpinnerYo" />
+        <activity android:name=".application.activities.cortantes.MyRecyclerView" />
+        <activity android:name=".application.activities.cortantes.SwipeRecycler" />
+        <activity android:name=".application.activities.cortantes.SwipeToShowButton"></activity>
     </application>
 
 </manifest>

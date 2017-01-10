@@ -31,12 +31,42 @@
         android:onClick="openMultiSpinnerActivity"/>
 
     <Button
-        android:text="Button"
+        android:text="Searchable Spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
         android:id="@+id/button5"
         android:layout_below="@+id/button4"
+        android:layout_centerHorizontal="true"
+        android:onClick="openSearchableSpinnerActivity"/>
+
+    <Button
+        android:text="Recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button7"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="openRecyclerViewActivity"/>
+
+    <Button
+        android:text="Swipe Recycler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button7"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/button8"
+        android:onClick="openSwipeRecyclerViewActivity"/>
+
+    <Button
+        android:text="Swipe button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:id="@+id/button9"
+        android:onClick="openSwipeToShowButtonActivity"
+        android:layout_below="@+id/button8"
         android:layout_centerHorizontal="true" />
 
 
