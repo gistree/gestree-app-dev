@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gistree.db_con">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -20,14 +20,22 @@
             </intent-filter>
         </activity>
 
-        <meta-data android:name="API_URL" android:value="http://213.58.234.45:3000/api/"></meta-data>
-        <meta-data android:name="Database_Path" android:value="/storage/sdcard0/databases/"></meta-data>
+        <meta-data
+            android:name="API_URL"
+            android:value="http://213.58.234.45:3000/api/" />
+        <meta-data
+            android:name="Database_Path"
+            android:value="/data/data/com.example.gistree.db_con/databases/" />
         <!--
         TODO: Production Code
         <meta-data android:name="Database_Path" android:value="/data/data/com.example.gistee.db_con/databases/"></meta-data>
         -->
-        <meta-data android:name="Database_Name" android:value="testeArvore.db"></meta-data>
+        <meta-data
+            android:name="Database_Name"
+            android:value="testeArvore.db" />
 
+        <activity android:name=".application.activities.cortantes.FormActivity" />
+        <activity android:name=".application.activities.CMenuActivity"></activity>
     </application>
 
 </manifest>

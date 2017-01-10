@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 public class RecordArvore implements RecordInterface {
     private long id_tree;
-
     private String species;
     private String timestamp;
 

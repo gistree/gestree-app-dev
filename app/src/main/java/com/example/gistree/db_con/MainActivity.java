@@ -1,30 +1,26 @@
 package com.example.gistree.db_con;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 
+import com.example.gistree.db_con.application.activities.CMenuActivity;
 import com.example.gistree.db_con.lib.classes.Helper;
 import com.example.gistree.db_con.lib.classes.Metadata;
 import com.example.gistree.db_con.lib.classes.records.RecordArvore;
 
-import com.example.gistree.db_con.application.controllers.ButtonControllers;
-import com.example.gistree.db_con.lib.classes.records.RecordInterface;
 import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
 import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
 import com.example.gistree.db_con.lib.classes.repositories.RepositoryArvores;
 import com.example.gistree.db_con.lib.classes.repositories.RepositoryLogArvores;
 import com.example.gistree.db_con.lib.classes.repositories.RepositoryTimestamp;
 import com.example.gistree.db_con.lib.database.DataFactory;
-import com.example.gistree.db_con.lib.networking.HttpConnection;
-import com.example.gistree.db_con.lib.networking.HttpRequest;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.logging.LogRecord;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Bundle bd;
     private RecordArvore tree;
     public static final int UPDATEACTIVITY = 1;
+    public static final int CMENUACTIVITY = 4;
     public static final int RESULT_UPDATE_OK = 2;
     public static final int RESULT_DELETE_OK = 3;
 
@@ -89,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
 //
 //        new SendPostRequest().execute();
 
+        //SimpleToast.ok(getApplicationContext(), "qualquercoisa", "{fa-home}", 1000);
+
     }
 
 //    protected void buttonSendClicked (View v){
@@ -138,5 +137,10 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }
 //    }
+
+    protected void openCActivity (View v) {
+        Intent intent = new Intent(MainActivity.this, CMenuActivity.class);
+        startActivityForResult(intent,CMENUACTIVITY);
+    }
 }
 
