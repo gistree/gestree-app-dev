@@ -34,4 +34,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.github.Pierry:SimpleToast:v1.9' // SIMPLETOAST
     compile 'com.ernestoyaquello.stepperform:vertical-stepper-form:0.9.9' //NICEFORM
+    compile 'com.thomashaertel:multispinner:0.1.1@aar' //MULTI SPINNER
 }

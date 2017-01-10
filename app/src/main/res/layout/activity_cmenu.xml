@@ -11,7 +11,7 @@
     tools:context="com.example.gistree.db_con.application.activities.CMenuActivity">
 
     <Button
-        android:text="form"
+        android:text="nice form"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -21,22 +21,23 @@
         android:onClick="openFormActivity"/>
 
     <Button
-        android:text="Button"
+        android:text="multi spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:id="@+id/button4"
         android:layout_below="@+id/button3"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignStart="@+id/button3"
-        android:layout_marginTop="18dp"
-        android:id="@+id/button4" />
+        android:layout_centerHorizontal="true"
+        android:onClick="openMultiSpinnerActivity"/>
 
     <Button
         android:text="Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="19dp"
         android:id="@+id/button5"
         android:layout_below="@+id/button4"
-        android:layout_alignLeft="@+id/button4"
-        android:layout_alignStart="@+id/button4" />
+        android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>

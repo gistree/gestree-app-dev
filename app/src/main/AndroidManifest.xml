@@ -35,7 +35,8 @@
             android:value="testeArvore.db" />
 
         <activity android:name=".application.activities.cortantes.FormActivity" />
-        <activity android:name=".application.activities.CMenuActivity"></activity>
+        <activity android:name=".application.activities.CMenuActivity" />
+        <activity android:name=".application.activities.cortantes.MultiSpinners"></activity>
     </application>
 
 </manifest>
