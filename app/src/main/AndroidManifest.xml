@@ -40,7 +40,9 @@
         <activity android:name=".application.activities.cortantes.SearchableSpinnerYo" />
         <activity android:name=".application.activities.cortantes.MyRecyclerView" />
         <activity android:name=".application.activities.cortantes.SwipeRecycler" />
-        <activity android:name=".application.activities.cortantes.SwipeToShowButton"></activity>
+        <activity android:name=".application.activities.cortantes.SwipeToShowButton" />
+        <activity android:name=".application.activities.cortantes.scrollabletabs.MainScrollableTabs" />
+        <activity android:name=".application.activities.cortantes.scrollabletabs.ScrollableInsideFragmentActivity"></activity>
     </application>
 
 </manifest>

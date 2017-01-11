@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.example.gistree.db_con.R;
 import com.example.gistree.db_con.application.activities.cortantes.FormActivity;
+import com.example.gistree.db_con.application.activities.cortantes.scrollabletabs.MainScrollableTabs;
 import com.example.gistree.db_con.application.activities.cortantes.MultiSpinners;
 import com.example.gistree.db_con.application.activities.cortantes.MyRecyclerView;
 import com.example.gistree.db_con.application.activities.cortantes.SearchableSpinnerYo;
@@ -21,6 +22,7 @@ public class CMenuActivity extends AppCompatActivity {
     public static final int MYRECYCLERVIEW = 9;
     public static final int MYSWIPERECYCLERVIEW = 10;
     public static final int SWIPETOSHOWBUTTON = 11;
+    public static final int SCROLLABLETABS = 12;
 
 
     @Override
@@ -57,5 +59,10 @@ public class CMenuActivity extends AppCompatActivity {
     protected void openSwipeToShowButtonActivity (View v) {
         Intent intent = new Intent(CMenuActivity.this, SwipeToShowButton.class);
         startActivityForResult(intent,SWIPETOSHOWBUTTON);
+    }
+
+    protected void openScrollableTabsActivity (View v) {
+        Intent intent = new Intent(CMenuActivity.this, MainScrollableTabs.class);
+        startActivityForResult(intent,SCROLLABLETABS);
     }
 }

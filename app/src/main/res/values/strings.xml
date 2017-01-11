@@ -15,4 +15,6 @@
         <item>eu</item>
         <item>lolololololololololol</item>
     </string-array>
+    <string name="hello_world">Hello world!</string>
+    <string name="fragment_configuration_title">Configuration</string>
 </resources>
