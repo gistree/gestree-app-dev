@@ -17,7 +17,6 @@ public class HttpRequest {
     private String timestamp;
     private ArrayList<? extends RecordInterface> records;
 
-
     private HttpRequest(String url){
         this.requestType = "GET";
         this.url = url;

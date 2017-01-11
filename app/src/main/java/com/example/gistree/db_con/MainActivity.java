@@ -1,14 +1,18 @@
 package com.example.gistree.db_con;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.gistree.db_con.lib.classes.Helper;
 import com.example.gistree.db_con.lib.classes.Metadata;
+import com.example.gistree.db_con.lib.classes.maps.ArvoresAdapter;
+import com.example.gistree.db_con.lib.classes.maps.ArvoresMap;
 import com.example.gistree.db_con.lib.classes.records.RecordArvore;
 
 import com.example.gistree.db_con.application.controllers.ButtonControllers;
@@ -65,16 +69,27 @@ public class MainActivity extends AppCompatActivity {
 
         String url = Metadata.getAPIUrl(getApplicationContext());
 
-        //new HttpConnection().execute(new HttpRequest(getApplicationContext(),url+"echo/estou_vivo", "GET"));
+        RecordArvore arv = new RecordArvore();
+        arv.setId_tree(1);
+        arv.setSpecies("Teste");
+        arv.setTimestamp("Timestamp");
 
-        //Log.e("END", "END");
+        ArvoresMap arvs = new ArvoresMap();
+        arvs.put(arv.getId(), arv);
 
-
-//        ListView listView = (ListView) findViewById(android.R.id.list);
+        ListView listView = (ListView) findViewById(android.R.id.list);
 //        values = db.arvoresToShow(db.getAllArvores(), db.getAllLogs());
 //        adapter = new ArrayAdapter<>(this,
 //                android.R.layout.simple_list_item_1, android.R.id.text1, values);
-//        listView.setAdapter(adapter);
+
+        ArvoresAdapter adapter = new ArvoresAdapter(getApplicationContext(), arvs);
+        Log.d("Ch" , "Ch");
+        listView.setAdapter(adapter);
+
+        arv.setSpecies("TesteAlterado");
+        arvs.put(arv.getId(), arv);
+
+        adapter.notifyDataSetChanged();
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

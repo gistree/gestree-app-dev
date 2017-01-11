@@ -35,21 +35,8 @@ public class RepositoryArvores implements RepositoryInterface {
     public ArrayList<RecordArvore> getAllArvores(){
         return (ArrayList<RecordArvore>) db.getAllRecords(this);
     }
-
-    public RecordArvore saveArvore(RecordArvore a){
-        RecordArvore arv = null;
-        db.startTransaction();
-        try {
-            arv = (RecordArvore) db.insert(this, a);
-            RepositoryLogArvores lgf = new RepositoryLogArvores(myContext);
-            RecordLogArvore logtree = new RecordLogArvore(arv, 'I');
-            lgf.saveLogTree(logtree);
-            db.commitTransaction();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        db.endTransation();
-        return arv;
+    public RecordArvore saveArvore(RecordArvore a) throws Exception {
+        return (RecordArvore) db.insert(this, a);
     }
 
     @Override

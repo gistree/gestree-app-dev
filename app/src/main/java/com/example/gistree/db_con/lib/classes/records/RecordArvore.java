@@ -46,6 +46,12 @@ public class RecordArvore implements RecordInterface {
     }
 
     @Override
+    public String toString() {
+        // TODO: 11-01-2017 : FIX THIS
+        return "Arvore " + this.getId() + " - " + this.getSpecies();
+    }
+
+    @Override
     public JSONObject toJSONObject() {
         JSONObject json = new JSONObject();
         try {
