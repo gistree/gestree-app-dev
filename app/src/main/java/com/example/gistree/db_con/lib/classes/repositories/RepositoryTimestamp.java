@@ -23,14 +23,8 @@ public class RepositoryTimestamp implements RepositoryInterface {
         this.myContext = c;
     }
 
-    public RecordTimestamp saveTimestamp(RecordTimestamp r){
-        RecordTimestamp rec = null;
-        try {
-            rec = (RecordTimestamp) db.insert(this, r);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return rec;
+    public RecordTimestamp saveTimestamp(RecordTimestamp r) throws Exception {
+        return (RecordTimestamp) db.insert(this, r);
     }
     public RecordTimestamp getLastTimestamp(){
         return (RecordTimestamp) db.getLast(this);
@@ -40,7 +34,6 @@ public class RepositoryTimestamp implements RepositoryInterface {
     public ContentValues values(RecordInterface i) {
         RecordTimestamp tsm = (RecordTimestamp) i;
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, tsm.getId());
         values.put(COLUMN_TIMESTAMP, tsm.getTimestamp());
         return values;
     }

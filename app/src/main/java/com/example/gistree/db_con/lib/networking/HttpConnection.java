@@ -2,6 +2,8 @@ package com.example.gistree.db_con.lib.networking;
 
 import android.os.AsyncTask;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -53,6 +55,7 @@ public class HttpConnection extends AsyncTask<HttpRequest, Integer, String> {
                 while ((line = r.readLine()) != null) {
                     total.append(line);
                 }
+                System.out.println(total.toString());
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -70,5 +73,6 @@ public class HttpConnection extends AsyncTask<HttpRequest, Integer, String> {
         delegate.response(o);
         super.onPostExecute(o);
     }
+
 }
 

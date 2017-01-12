@@ -3,6 +3,7 @@ package com.example.gistree.db_con.lib.networking;
 import com.example.gistree.db_con.lib.classes.records.RecordInterface;
 import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,6 +47,7 @@ public class HttpRequest {
         JSONObject json = new JSONObject();
         try {
             json.put("timestamp", this.timestamp);
+            json.put("data", new JSONArray());
             for (RecordInterface record : this.records) {
                 json.accumulate("data", record.toJSONObject());
             }
@@ -54,23 +56,5 @@ public class HttpRequest {
         }
         return json;
     }
-
-//    private String getDataString(JSONObject data) throws Exception {
-//        StringBuilder result = new StringBuilder();
-//        boolean first = true;
-//        Iterator<String> itr = data.keys();
-//        while (itr.hasNext()) {
-//            String key = itr.next();
-//            Object value = data.get(key);
-//            if (first)
-//                first = false;
-//            else
-//                result.append("&");
-//            result.append(URLEncoder.encode(key, "UTF-8"));
-//            result.append("=");
-//            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-//        }
-//        return result.toString();
-//    }
 
 }

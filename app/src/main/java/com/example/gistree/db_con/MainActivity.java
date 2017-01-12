@@ -1,6 +1,5 @@
 package com.example.gistree.db_con;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,20 +15,15 @@ import com.example.gistree.db_con.lib.classes.maps.ArvoresMap;
 import com.example.gistree.db_con.lib.classes.records.RecordArvore;
 
 import com.example.gistree.db_con.application.controllers.ButtonControllers;
-import com.example.gistree.db_con.lib.classes.records.RecordInterface;
 import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
 import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
 import com.example.gistree.db_con.lib.classes.repositories.RepositoryArvores;
 import com.example.gistree.db_con.lib.classes.repositories.RepositoryLogArvores;
 import com.example.gistree.db_con.lib.classes.repositories.RepositoryTimestamp;
 import com.example.gistree.db_con.lib.database.DataFactory;
-import com.example.gistree.db_con.lib.networking.HttpConnection;
-import com.example.gistree.db_con.lib.networking.HttpRequest;
 
-import java.net.URL;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.logging.LogRecord;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
         Helper.setupUI(findViewById(R.id.activity_main), MainActivity.this);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        ButtonControllers btc = new ButtonControllers(getApplicationContext());
+        Helper.refreshDatabase(getApplicationContext());
+
+        ButtonControllers btc = new ButtonControllers(this);
         Button btEcho = (Button) findViewById(R.id.btEcho);
         Button btTest = (Button) findViewById(R.id.btTeste);
         Button btSync = (Button) findViewById(R.id.btEnviar);
@@ -58,38 +54,17 @@ public class MainActivity extends AppCompatActivity {
         btTest.setOnClickListener(btc);
         btSync.setOnClickListener(btc);
 
+        RepositoryArvores repoArv = new RepositoryArvores(getApplicationContext());
+        ArrayList<RecordArvore> aArvores = repoArv.getAllArvores();
         RepositoryLogArvores repoLog = new RepositoryLogArvores(getApplicationContext());
         ArrayList<RecordLogArvore> aLogs = repoLog.getAllLogs();
 
-        RepositoryArvores repoArv = new RepositoryArvores(getApplicationContext());
-        ArrayList<RecordArvore> aArvores = repoArv.getAllArvores();
-
-        RepositoryTimestamp repoTime = new RepositoryTimestamp(getApplicationContext());
-        RecordTimestamp timestamp = repoTime.getLastTimestamp();
-
-        String url = Metadata.getAPIUrl(getApplicationContext());
-
-        RecordArvore arv = new RecordArvore();
-        arv.setId_tree(1);
-        arv.setSpecies("Teste");
-        arv.setTimestamp("Timestamp");
-
-        ArvoresMap arvs = new ArvoresMap();
-        arvs.put(arv.getId(), arv);
+        ArvoresMap arvs = new ArvoresMap(aArvores);
 
         ListView listView = (ListView) findViewById(android.R.id.list);
-//        values = db.arvoresToShow(db.getAllArvores(), db.getAllLogs());
-//        adapter = new ArrayAdapter<>(this,
-//                android.R.layout.simple_list_item_1, android.R.id.text1, values);
-
         ArvoresAdapter adapter = new ArvoresAdapter(getApplicationContext(), arvs);
-        Log.d("Ch" , "Ch");
         listView.setAdapter(adapter);
 
-        arv.setSpecies("TesteAlterado");
-        arvs.put(arv.getId(), arv);
-
-        adapter.notifyDataSetChanged();
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

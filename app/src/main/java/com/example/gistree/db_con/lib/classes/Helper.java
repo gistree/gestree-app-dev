@@ -1,11 +1,14 @@
 package com.example.gistree.db_con.lib.classes;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import java.io.File;
 
 public class Helper {
 
@@ -33,4 +36,23 @@ public class Helper {
                 activity.getCurrentFocus().getWindowToken(), 0);
     }
 
+    public static void refreshDatabase(Context c) {
+        File dbDelete = new File(Metadata.getDatabasePath(c) + Metadata.getDatabaseName(c));
+        File joDelete = new File(Metadata.getDatabasePath(c) + Metadata.getDatabaseName(c) + "-journal");
+        if (dbDelete.exists()) {
+            if (dbDelete.delete()) {
+                System.out.println("file Deleted ");
+            } else {
+                System.out.println("file not Deleted ");
+            }
+            if(joDelete.exists()){
+                if(joDelete.delete()){
+                    System.out.println("journal Deleted");
+                }else{
+                    System.out.println("journal not Deleted");
+                }
+            }
+        }
+
+    }
 }

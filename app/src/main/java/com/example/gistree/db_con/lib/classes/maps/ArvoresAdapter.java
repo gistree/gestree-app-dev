@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
+
+import java.util.ArrayList;
+
 public class ArvoresAdapter extends BaseAdapter {
 
     private ArvoresMap _data = new ArvoresMap();
@@ -17,6 +21,16 @@ public class ArvoresAdapter extends BaseAdapter {
         this._context = c;
         this._data = data;
         this._keys = data.keySet().toArray(new Long[data.size()]);
+    }
+
+    public ArvoresMap getMap(){
+        return this._data;
+    }
+
+    public void updateAdapter(ArrayList<RecordLogArvore> logs){
+        this._data.updateTrees(logs);
+        this._keys = this._data.keySet().toArray(new Long[this._data.size()]);
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -48,4 +62,5 @@ public class ArvoresAdapter extends BaseAdapter {
         ((TextView) result.findViewById(android.R.id.text1)).setText(value);
         return result;
     }
+
 }
