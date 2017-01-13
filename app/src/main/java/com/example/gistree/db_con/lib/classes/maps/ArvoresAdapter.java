@@ -26,7 +26,6 @@ public class ArvoresAdapter extends BaseAdapter {
     public ArvoresMap getMap(){
         return this._data;
     }
-
     public void updateAdapter(ArrayList<RecordLogArvore> logs){
         this._data.updateTrees(logs);
         this._keys = this._data.keySet().toArray(new Long[this._data.size()]);
@@ -37,17 +36,14 @@ public class ArvoresAdapter extends BaseAdapter {
     public int getCount() {
         return this._data.size();
     }
-
     @Override
     public Object getItem(int position) {
         return this._data.get(this._keys[position]);
     }
-
     @Override
     public long getItemId(int position) {
         return position;
     }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         long key = _keys[position];
@@ -62,5 +58,4 @@ public class ArvoresAdapter extends BaseAdapter {
         ((TextView) result.findViewById(android.R.id.text1)).setText(value);
         return result;
     }
-
 }

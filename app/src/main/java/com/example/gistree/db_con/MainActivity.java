@@ -56,11 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         RepositoryArvores repoArv = new RepositoryArvores(getApplicationContext());
         ArrayList<RecordArvore> aArvores = repoArv.getAllArvores();
-        RepositoryLogArvores repoLog = new RepositoryLogArvores(getApplicationContext());
-        ArrayList<RecordLogArvore> aLogs = repoLog.getAllLogs();
 
         ArvoresMap arvs = new ArvoresMap(aArvores);
-
         ListView listView = (ListView) findViewById(android.R.id.list);
         ArvoresAdapter adapter = new ArvoresAdapter(getApplicationContext(), arvs);
         listView.setAdapter(adapter);

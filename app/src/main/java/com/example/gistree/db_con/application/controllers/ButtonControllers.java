@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.gistree.db_con.R;
+import com.example.gistree.db_con.lib.classes.JSONConvert;
 import com.example.gistree.db_con.lib.classes.Metadata;
 import com.example.gistree.db_con.lib.classes.maps.ArvoresAdapter;
 import com.example.gistree.db_con.lib.classes.records.RecordArvore;
@@ -59,17 +60,20 @@ public class ButtonControllers implements View.OnClickListener {
             case R.id.btEnviar:
                 tsm = repoTime.getLastTimestamp();
                 records = repoLog.getAllLogs();
+                System.out.println("ButtonControllers.onClick");
                 new HttpConnection(new HttpConnection.HttpResponse() {
                     @Override
                     public void response(String st) {
-                        Toast.makeText(context, st, Toast.LENGTH_LONG).show();
-                        System.out.println("ButtonControllers.response");
                         // TODO: 11-01-2017 Handle Response
-                        JSONObject test = null;
+                        JSONObject resJSON = null;
                         try {
-                            test = new JSONObject(st);
-                            RecordTimestamp time = new RecordTimestamp((String) test.get("newTimestamp"));
+                            resJSON = new JSONObject(st);
+                            RecordTimestamp time = new RecordTimestamp((String) resJSON.get("newTimestamp"));
                             repoTime.saveTimestamp(time);
+                            ListView listView = (ListView) ((Activity)context).findViewById(android.R.id.list);
+                            ArvoresAdapter adapter = (ArvoresAdapter) listView.getAdapter();
+                            ArrayList<RecordLogArvore> logs = JSONConvert.logToLogArvoreArray(resJSON);
+                            adapter.updateAdapter(logs);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -85,7 +89,6 @@ public class ButtonControllers implements View.OnClickListener {
                 ));
                 break;
             default:
-
                 break;
         }
     }

@@ -1,5 +1,7 @@
 package com.example.gistree.db_con.lib.classes.maps;
 
+import android.util.Log;
+
 import com.example.gistree.db_con.lib.classes.records.RecordArvore;
 import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
 
