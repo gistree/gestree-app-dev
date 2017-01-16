@@ -24,10 +24,10 @@ public class RepositoryTimestamp implements RepositoryInterface {
     }
 
     public RecordTimestamp saveTimestamp(RecordTimestamp r) throws Exception {
-        return (RecordTimestamp) db.insert(this, r);
+        return (RecordTimestamp) db.insertRecord(this, r);
     }
     public RecordTimestamp getLastTimestamp(){
-        return (RecordTimestamp) db.getLast(this);
+        return (RecordTimestamp) db.getLastRecord(this);
     }
 
     @Override

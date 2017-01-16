@@ -16,11 +16,11 @@ public class RecordLogArvore extends RecordArvore implements RecordInterface {
 
     @Override
     public long getId(){
-        return this.id_sync;
+        return this.getId_tree();
     }
     @Override
     public void setId(long id) {
-        this.id_sync = id;
+        this.setId_tree(id);
     }
 
     public long getId_sync() {

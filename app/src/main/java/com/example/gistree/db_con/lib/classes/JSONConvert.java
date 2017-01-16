@@ -1,10 +1,8 @@
 package com.example.gistree.db_con.lib.classes;
 
-
 import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

@@ -14,6 +14,7 @@ import com.example.gistree.db_con.lib.classes.maps.ArvoresAdapter;
 import com.example.gistree.db_con.lib.classes.records.RecordArvore;
 import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
 import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
+import com.example.gistree.db_con.lib.classes.repositories.RepositoryArvores;
 import com.example.gistree.db_con.lib.classes.repositories.RepositoryLogArvores;
 import com.example.gistree.db_con.lib.classes.repositories.RepositoryTimestamp;
 import com.example.gistree.db_con.lib.networking.HttpConnection;
@@ -38,6 +39,7 @@ public class ButtonControllers implements View.OnClickListener {
         final Context context = this.context;
         final RepositoryTimestamp repoTime = new RepositoryTimestamp(this.context);
         final RepositoryLogArvores repoLog = new RepositoryLogArvores(this.context);
+        final RepositoryArvores repoArv = new RepositoryArvores(this.context);
         ArrayList<RecordLogArvore> records;
         RecordTimestamp tsm;
         switch (v.getId()){
@@ -74,7 +76,7 @@ public class ButtonControllers implements View.OnClickListener {
                             ArvoresAdapter adapter = (ArvoresAdapter) listView.getAdapter();
                             ArrayList<RecordLogArvore> logs = JSONConvert.logToLogArvoreArray(resJSON);
                             adapter.updateAdapter(logs);
-
+                            repoArv.updateRecords(logs);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (Exception e) {

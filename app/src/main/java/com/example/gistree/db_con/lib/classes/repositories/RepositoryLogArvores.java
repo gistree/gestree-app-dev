@@ -24,7 +24,7 @@ public class RepositoryLogArvores extends RepositoryArvores {
     }
 
     public RecordLogArvore saveLogTree(RecordLogArvore logRecord) throws Exception {
-        return (RecordLogArvore) db.insert(this, logRecord);
+        return (RecordLogArvore) db.insertRecord(this, logRecord);
     }
 
     @SuppressWarnings("unchecked")
@@ -32,7 +32,7 @@ public class RepositoryLogArvores extends RepositoryArvores {
         return (ArrayList<RecordLogArvore>) db.getAllRecords(this);
     }
     public int truncateTableLogs(){
-        return db.truncate(this);
+        return db.truncateTable(this);
     }
 
     @Override

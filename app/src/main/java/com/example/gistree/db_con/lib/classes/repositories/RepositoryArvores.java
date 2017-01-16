@@ -3,6 +3,7 @@ package com.example.gistree.db_con.lib.classes.repositories;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.widget.Toast;
 
 import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
 import com.example.gistree.db_con.lib.classes.records.RecordArvore;
@@ -36,7 +37,39 @@ public class RepositoryArvores implements RepositoryInterface {
         return (ArrayList<RecordArvore>) db.getAllRecords(this);
     }
     public RecordArvore saveArvore(RecordArvore a) throws Exception {
-        return (RecordArvore) db.insert(this, a);
+        return (RecordArvore) db.insertRecord(this, a);
+    }
+    public void updateArvore(RecordArvore a) throws Exception {
+        db.updateRecord(this, a);
+    }
+    public void deleteArvore(RecordArvore a) throws Exception {
+        db.deleteRecord(this, a);
+    }
+    public void updateRecords(ArrayList<RecordLogArvore> logs) {
+        db.startTransaction();
+        try {
+            for (RecordLogArvore log : logs) {
+                switch (log.getAction()) {
+                    case 'I':
+                        this.saveArvore(log);
+                        break;
+                    case 'U':
+                        this.updateArvore(log);
+                        break;
+                    case 'D':
+                        this.deleteArvore(log);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            db.commitTransaction();
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(this.myContext, "ERROR", Toast.LENGTH_LONG).show();
+        }finally {
+            db.endTransation();
+        }
     }
 
     @Override
