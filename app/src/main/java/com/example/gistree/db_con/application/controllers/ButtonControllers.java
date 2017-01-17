@@ -2,7 +2,6 @@ package com.example.gistree.db_con.application.controllers;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -11,7 +10,6 @@ import com.example.gistree.db_con.R;
 import com.example.gistree.db_con.lib.classes.JSONConvert;
 import com.example.gistree.db_con.lib.classes.Metadata;
 import com.example.gistree.db_con.lib.classes.maps.ArvoresAdapter;
-import com.example.gistree.db_con.lib.classes.records.RecordArvore;
 import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
 import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
 import com.example.gistree.db_con.lib.classes.repositories.RepositoryArvores;
@@ -19,8 +17,9 @@ import com.example.gistree.db_con.lib.classes.repositories.RepositoryLogArvores;
 import com.example.gistree.db_con.lib.classes.repositories.RepositoryTimestamp;
 import com.example.gistree.db_con.lib.networking.HttpConnection;
 import com.example.gistree.db_con.lib.networking.HttpRequest;
+import com.example.gistree.db_con.lib.networking.classes.Response;
+import com.example.gistree.db_con.lib.networking.classes.ResponseError;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,10 +43,14 @@ public class ButtonControllers implements View.OnClickListener {
         RecordTimestamp tsm;
         switch (v.getId()){
             case R.id.btEcho:
-                new HttpConnection(new HttpConnection.HttpResponse() {
+                new HttpConnection(new HttpConnection.AsyncResponse() {
                     @Override
-                    public void response(String st) {
-                        Toast.makeText(context, st, Toast.LENGTH_SHORT).show();
+                    public void onResponse(Response res) {
+                        Toast.makeText(context, res.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onError(ResponseError err) {
+                        err.raiseError(context, Toast.LENGTH_LONG);
                     }
                 }).execute(
                         HttpRequest.makeGETRequest(
@@ -62,27 +65,30 @@ public class ButtonControllers implements View.OnClickListener {
             case R.id.btEnviar:
                 tsm = repoTime.getLastTimestamp();
                 records = repoLog.getAllLogs();
-                System.out.println("ButtonControllers.onClick");
-                new HttpConnection(new HttpConnection.HttpResponse() {
+                new HttpConnection(new HttpConnection.AsyncResponse() {
                     @Override
-                    public void response(String st) {
-                        // TODO: 11-01-2017 Handle Response
-                        JSONObject resJSON = null;
+                    public void onResponse(Response res) {
                         try {
-                            resJSON = new JSONObject(st);
-                            RecordTimestamp time = new RecordTimestamp((String) resJSON.get("newTimestamp"));
+                            ArrayList<RecordLogArvore> logs = JSONConvert.logToLogArvoreArray(res.getResponseObject());
+                            repoArv.updateRecords(logs);
+                            RecordTimestamp time = new RecordTimestamp((String) res.getResponseObject().get("newTimestamp"));
                             repoTime.saveTimestamp(time);
                             ListView listView = (ListView) ((Activity)context).findViewById(android.R.id.list);
                             ArvoresAdapter adapter = (ArvoresAdapter) listView.getAdapter();
-                            ArrayList<RecordLogArvore> logs = JSONConvert.logToLogArvoreArray(resJSON);
                             adapter.updateAdapter(logs);
-                            repoArv.updateRecords(logs);
+                            repoLog.truncateTableLogs();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        repoLog.truncateTableLogs();
+                    }
+                    @Override
+                    public void onError(ResponseError err) {
+                        if(err.handleError()){
+                            repoLog.truncateTableLogs();
+                        }
+                        err.raiseError(context, Toast.LENGTH_LONG);
                     }
                 }).execute(HttpRequest.makePOSTRequest(
                         Metadata.getAPIUrl(context) + "sync",

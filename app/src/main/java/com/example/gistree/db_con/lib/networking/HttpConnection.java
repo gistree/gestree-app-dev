@@ -2,77 +2,94 @@ package com.example.gistree.db_con.lib.networking;
 
 import android.os.AsyncTask;
 
-import org.json.JSONObject;
+import com.example.gistree.db_con.lib.networking.classes.AbstractHttpResponse;
+import com.example.gistree.db_con.lib.networking.classes.Response;
+import com.example.gistree.db_con.lib.networking.classes.ResponseError;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
-import javax.net.ssl.HttpsURLConnection;
+public class HttpConnection extends AsyncTask<HttpRequest, Integer, AbstractHttpResponse> {
 
-public class HttpConnection extends AsyncTask<HttpRequest, Integer, String> {
-
-    public interface HttpResponse{
-        void response(String st);
+    public interface AsyncResponse {
+        void onResponse(Response res);
+        void onError(ResponseError res);
     }
-    private HttpResponse delegate = null; //Call back interface
+    private AsyncResponse delegate = null;
 
-    public HttpConnection(HttpResponse httpResponse) {
-        this.delegate = httpResponse; //Assigning call back interface through constructor
+    private boolean _hasError = false;
+
+    public HttpConnection(AsyncResponse asyncResponse) {
+        this.delegate = asyncResponse; //Assigning call back interface through constructor
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
     }
-
     @Override
-    protected String doInBackground(HttpRequest... params) {
+    protected AbstractHttpResponse doInBackground(HttpRequest... params) {
         HttpRequest req = params[0];
         HttpURLConnection myCon;
-        StringBuilder total = new StringBuilder();
+        AbstractHttpResponse response = null;
         try{
             myCon = (HttpURLConnection) req.getURL().openConnection();
             myCon.setRequestMethod(req.getRequestType());
             if(req.getRequestType() == "POST"){
-                myCon.setReadTimeout(15000);
-                myCon.setConnectTimeout(15000);
-                myCon.setDoInput(true);
-                myCon.setDoOutput(true);
-                myCon.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                myCon.setRequestProperty("Accept", "application/json; charset=UTF-8");
-                OutputStreamWriter osw = new OutputStreamWriter(myCon.getOutputStream());
-                String dataToSend = req.getData().toString();
-                osw.write(dataToSend);
-                osw.close();
+                createPostRequest(myCon, req);
             }
-            if (myCon.getResponseCode() == HttpsURLConnection.HTTP_OK) {
-                InputStream is = myCon.getInputStream();
-                BufferedReader r = new BufferedReader(new InputStreamReader(is));
-                String line;
-                while ((line = r.readLine()) != null) {
-                    total.append(line);
-                }
-                System.out.println(total.toString());
+            switch (myCon.getResponseCode()){
+                case HttpURLConnection.HTTP_OK:
+                    response = this.readResponse(myCon);
+                    break;
+                case 422:
+                case HttpURLConnection.HTTP_INTERNAL_ERROR:
+                    this._hasError = true;
+                    response = this.readError(myCon);
+                    break;
+                default:
+                    break;
             }
+        }catch (IOException e){
+            e.printStackTrace();
+            this._hasError = true;
+            response = new ResponseError("ResponseError", "ResponseError", 500, false, "O servidor não está a responder.", "Cliente");
         }catch (Exception e){
             e.printStackTrace();
         }
-        return total.toString();
+        return response;
     }
-
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
     }
-
     @Override
-    protected void onPostExecute(String o) {
-        delegate.response(o);
-        super.onPostExecute(o);
+    protected void onPostExecute(AbstractHttpResponse res) {
+        if(this._hasError){
+            delegate.onError((ResponseError) res);
+        }else{
+            delegate.onResponse((Response) res);
+        }
+        super.onPostExecute(res);
     }
-
+    private void createPostRequest(HttpURLConnection con, HttpRequest req) throws Exception {
+        con.setReadTimeout(15000);
+        con.setConnectTimeout(15000);
+        con.setDoInput(true);
+        con.setDoOutput(true);
+        con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+        con.setRequestProperty("Accept", "application/json; charset=UTF-8");
+        OutputStreamWriter osw = new OutputStreamWriter(con.getOutputStream());
+        String dataToSend = req.getData().toString();
+        osw.write(dataToSend);
+        osw.close();
+    }
+    private Response readResponse(HttpURLConnection con) throws IOException {
+        return new Response("Response", con);
+    }
+    private ResponseError readError(HttpURLConnection con) throws IOException {
+        return new ResponseError("ResponseError", con);
+    }
 }
 
