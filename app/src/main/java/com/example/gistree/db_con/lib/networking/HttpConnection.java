@@ -54,7 +54,7 @@ public class HttpConnection extends AsyncTask<HttpRequest, Integer, AbstractHttp
         }catch (IOException e){
             e.printStackTrace();
             this._hasError = true;
-            response = new ResponseError("ResponseError", "ResponseError", 500, false, "O servidor não está a responder.", "Cliente");
+            response = new ResponseError("Error", "ResponseError", 500, false, "O servidor não está a responder.", "Cliente");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -89,7 +89,7 @@ public class HttpConnection extends AsyncTask<HttpRequest, Integer, AbstractHttp
         return new Response("Response", con);
     }
     private ResponseError readError(HttpURLConnection con) throws IOException {
-        return new ResponseError("ResponseError", con);
+        return new ResponseError("Error", con);
     }
 }
 

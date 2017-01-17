@@ -64,13 +64,13 @@ public class ResponseError extends AbstractHttpResponse {
     public void raiseError(Context c, int duration){
         if(this.name.equals(ResponseError.CLIENT_ERROR)){
             Toast.makeText(c,
-               "ResponseError "
+               "Error "
                + String.valueOf(this.errorCode) + " : "
                + this.errorMessage
                + " -:- ID.ARVORE = " + this.errorOn,
                duration).show();
         }else{
-            Toast.makeText(c,"ResponseError " + String.valueOf(this.errorCode) + " : " + this.errorMessage, duration).show();
+            Toast.makeText(c,"Error " + String.valueOf(this.errorCode) + " : " + this.errorMessage, duration).show();
         }
     }
     public boolean handleError(){

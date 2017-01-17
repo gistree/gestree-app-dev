@@ -2,27 +2,19 @@ package com.example.gistree.db_con;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.gistree.db_con.application.controllers.ButtonControllers;
 import com.example.gistree.db_con.lib.classes.Helper;
-import com.example.gistree.db_con.lib.classes.Metadata;
 import com.example.gistree.db_con.lib.classes.maps.ArvoresAdapter;
 import com.example.gistree.db_con.lib.classes.maps.ArvoresMap;
 import com.example.gistree.db_con.lib.classes.records.RecordArvore;
-
-import com.example.gistree.db_con.application.controllers.ButtonControllers;
-import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
-import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
 import com.example.gistree.db_con.lib.classes.repositories.RepositoryArvores;
-import com.example.gistree.db_con.lib.classes.repositories.RepositoryLogArvores;
-import com.example.gistree.db_con.lib.classes.repositories.RepositoryTimestamp;
 import com.example.gistree.db_con.lib.database.DataFactory;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
