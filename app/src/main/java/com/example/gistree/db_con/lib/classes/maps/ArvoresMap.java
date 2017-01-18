@@ -1,9 +1,7 @@
 package com.example.gistree.db_con.lib.classes.maps;
 
-import android.util.Log;
-
-import com.example.gistree.db_con.lib.classes.records.RecordArvore;
-import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
+import com.example.gistree.db_con.lib.database.records.RecordArvore;
+import com.example.gistree.db_con.lib.database.records.RecordLogArvore;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

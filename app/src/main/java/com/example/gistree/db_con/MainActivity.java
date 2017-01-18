@@ -11,9 +11,10 @@ import com.example.gistree.db_con.application.controllers.ButtonControllers;
 import com.example.gistree.db_con.lib.classes.Helper;
 import com.example.gistree.db_con.lib.classes.maps.ArvoresAdapter;
 import com.example.gistree.db_con.lib.classes.maps.ArvoresMap;
-import com.example.gistree.db_con.lib.classes.records.RecordArvore;
-import com.example.gistree.db_con.lib.classes.repositories.RepositoryArvores;
+import com.example.gistree.db_con.lib.database.records.RecordArvore;
+import com.example.gistree.db_con.lib.database.repositories.RepositoryArvores;
 import com.example.gistree.db_con.lib.database.DataFactory;
+import com.example.gistree.db_con.lib.networking.con.ConnectionManager;
 
 import java.util.ArrayList;
 
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(android.R.id.list);
         ArvoresAdapter adapter = new ArvoresAdapter(getApplicationContext(), arvs);
         listView.setAdapter(adapter);
+
+        ConnectionManager.registerBroadCastReceiver(getApplicationContext());
 
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override

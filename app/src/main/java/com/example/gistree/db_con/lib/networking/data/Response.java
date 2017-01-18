@@ -1,4 +1,4 @@
-package com.example.gistree.db_con.lib.networking.classes;
+package com.example.gistree.db_con.lib.networking.data;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
-public class Response extends AbstractHttpResponse{
+public class Response extends AbstractHttpResponse {
 
     private JSONObject resObj;
     private String resString;

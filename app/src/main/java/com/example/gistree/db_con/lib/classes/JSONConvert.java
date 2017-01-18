@@ -1,6 +1,6 @@
 package com.example.gistree.db_con.lib.classes;
 
-import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
+import com.example.gistree.db_con.lib.database.records.RecordLogArvore;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

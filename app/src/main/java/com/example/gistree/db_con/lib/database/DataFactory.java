@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.gistree.db_con.lib.classes.repositories.RepositoryInterface;
-import com.example.gistree.db_con.lib.classes.records.RecordInterface;
+import com.example.gistree.db_con.lib.database.repositories.RepositoryInterface;
+import com.example.gistree.db_con.lib.database.records.RecordInterface;
 
 import java.io.IOException;
 import java.sql.SQLException;

@@ -1,11 +1,11 @@
-package com.example.gistree.db_con.lib.classes.repositories;
+package com.example.gistree.db_con.lib.database.repositories;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
-import com.example.gistree.db_con.lib.classes.records.RecordInterface;
+import com.example.gistree.db_con.lib.database.records.RecordLogArvore;
+import com.example.gistree.db_con.lib.database.records.RecordInterface;
 import com.example.gistree.db_con.lib.database.DataFactory;
 
 import java.util.ArrayList;

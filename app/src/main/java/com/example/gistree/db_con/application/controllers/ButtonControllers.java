@@ -10,18 +10,18 @@ import com.example.gistree.db_con.R;
 import com.example.gistree.db_con.lib.classes.JSONConvert;
 import com.example.gistree.db_con.lib.classes.Metadata;
 import com.example.gistree.db_con.lib.classes.maps.ArvoresAdapter;
-import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
-import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
-import com.example.gistree.db_con.lib.classes.repositories.RepositoryArvores;
-import com.example.gistree.db_con.lib.classes.repositories.RepositoryLogArvores;
-import com.example.gistree.db_con.lib.classes.repositories.RepositoryTimestamp;
+import com.example.gistree.db_con.lib.database.records.RecordLogArvore;
+import com.example.gistree.db_con.lib.database.records.RecordTimestamp;
+import com.example.gistree.db_con.lib.database.repositories.RepositoryArvores;
+import com.example.gistree.db_con.lib.database.repositories.RepositoryLogArvores;
+import com.example.gistree.db_con.lib.database.repositories.RepositoryTimestamp;
 import com.example.gistree.db_con.lib.networking.HttpConnection;
 import com.example.gistree.db_con.lib.networking.HttpRequest;
-import com.example.gistree.db_con.lib.networking.classes.Response;
-import com.example.gistree.db_con.lib.networking.classes.ResponseError;
+import com.example.gistree.db_con.lib.networking.con.ConnectionManager;
+import com.example.gistree.db_con.lib.networking.data.Response;
+import com.example.gistree.db_con.lib.networking.data.ResponseError;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -50,7 +50,7 @@ public class ButtonControllers implements View.OnClickListener {
                     }
                     @Override
                     public void onError(ResponseError err) {
-                        err.raiseError(context, Toast.LENGTH_LONG);
+                        err.raiseError(context);
                     }
                 }).execute(
                         HttpRequest.makeGETRequest(
@@ -58,43 +58,50 @@ public class ButtonControllers implements View.OnClickListener {
                     );
                 break;
             case R.id.btTeste:
-                ListView listView = (ListView) ((Activity)context).findViewById(android.R.id.list);
-                ArvoresAdapter adapter = (ArvoresAdapter) listView.getAdapter();
-                adapter.updateAdapter(repoLog.getAllLogs());
+
                 break;
             case R.id.btEnviar:
-                tsm = repoTime.getLastTimestamp();
-                records = repoLog.getAllLogs();
-                new HttpConnection(new HttpConnection.AsyncResponse() {
-                    @Override
-                    public void onResponse(Response res) {
-                        try {
-                            ArrayList<RecordLogArvore> logs = JSONConvert.logToLogArvoreArray(res.getResponseObject());
-                            repoArv.updateRecords(logs);
-                            RecordTimestamp time = new RecordTimestamp((String) res.getResponseObject().get("newTimestamp"));
-                            repoTime.saveTimestamp(time);
-                            ListView listView = (ListView) ((Activity)context).findViewById(android.R.id.list);
-                            ArvoresAdapter adapter = (ArvoresAdapter) listView.getAdapter();
-                            adapter.updateAdapter(logs);
-                            repoLog.truncateTableLogs();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                ConnectionManager cm = ConnectionManager.getConnectionManager(context);
+                if(cm.isConnected()){
+                    if(cm.isUsingMobileData()){
+                        GestreeToasts.mobileDataWarning(context);
+                    }else if(cm.isUsingWiFi()){
+                        tsm = repoTime.getLastTimestamp();
+                        records = repoLog.getAllLogs();
+                        new HttpConnection(new HttpConnection.AsyncResponse() {
+                            @Override
+                            public void onResponse(Response res) {
+                                try {
+                                    ArrayList<RecordLogArvore> logs = JSONConvert.logToLogArvoreArray(res.getResponseObject());
+                                    repoArv.updateRecords(logs);
+                                    RecordTimestamp time = new RecordTimestamp((String) res.getResponseObject().get("newTimestamp"));
+                                    repoTime.saveTimestamp(time);
+                                    ListView listView = (ListView) ((Activity)context).findViewById(android.R.id.list);
+                                    ArvoresAdapter adapter = (ArvoresAdapter) listView.getAdapter();
+                                    adapter.updateAdapter(logs);
+                                    repoLog.truncateTableLogs();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            @Override
+                            public void onError(ResponseError err) {
+                                if(err.handleError()){
+                                    repoLog.truncateTableLogs();
+                                }
+                                err.raiseError(context);
+                            }
+                        }).execute(HttpRequest.makePOSTRequest(
+                                Metadata.getAPIUrl(context) + "sync",
+                                tsm.getTimestamp(),
+                                records
+                        ));
                     }
-                    @Override
-                    public void onError(ResponseError err) {
-                        if(err.handleError()){
-                            repoLog.truncateTableLogs();
-                        }
-                        err.raiseError(context, Toast.LENGTH_LONG);
-                    }
-                }).execute(HttpRequest.makePOSTRequest(
-                        Metadata.getAPIUrl(context) + "sync",
-                        tsm.getTimestamp(),
-                        records
-                ));
+                }else{
+                    GestreeToasts.wifiWarning(context);
+                }
                 break;
             default:
                 break;

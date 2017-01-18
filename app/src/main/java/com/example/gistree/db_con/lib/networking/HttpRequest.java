@@ -1,6 +1,6 @@
 package com.example.gistree.db_con.lib.networking;
 
-import com.example.gistree.db_con.lib.classes.records.RecordInterface;
+import com.example.gistree.db_con.lib.database.records.RecordInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;

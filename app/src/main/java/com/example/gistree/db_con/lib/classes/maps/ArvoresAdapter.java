@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
+import com.example.gistree.db_con.lib.database.records.RecordLogArvore;
 
 import java.util.ArrayList;
 

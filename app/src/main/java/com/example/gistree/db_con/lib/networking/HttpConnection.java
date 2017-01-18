@@ -2,9 +2,9 @@ package com.example.gistree.db_con.lib.networking;
 
 import android.os.AsyncTask;
 
-import com.example.gistree.db_con.lib.networking.classes.AbstractHttpResponse;
-import com.example.gistree.db_con.lib.networking.classes.Response;
-import com.example.gistree.db_con.lib.networking.classes.ResponseError;
+import com.example.gistree.db_con.lib.networking.data.AbstractHttpResponse;
+import com.example.gistree.db_con.lib.networking.data.Response;
+import com.example.gistree.db_con.lib.networking.data.ResponseError;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

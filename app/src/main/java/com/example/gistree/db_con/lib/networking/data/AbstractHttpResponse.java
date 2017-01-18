@@ -1,4 +1,4 @@
-package com.example.gistree.db_con.lib.networking.classes;
+package com.example.gistree.db_con.lib.networking.data;
 
 public abstract class AbstractHttpResponse {
     private String type;

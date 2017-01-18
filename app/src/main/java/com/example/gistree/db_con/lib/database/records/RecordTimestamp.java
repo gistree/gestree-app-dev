@@ -1,4 +1,4 @@
-package com.example.gistree.db_con.lib.classes.records;
+package com.example.gistree.db_con.lib.database.records;
 
 import org.json.JSONException;
 import org.json.JSONObject;

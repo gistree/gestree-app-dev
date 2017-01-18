@@ -1,7 +1,6 @@
-package com.example.gistree.db_con.lib.networking.classes;
+package com.example.gistree.db_con.lib.networking.data;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,16 +60,9 @@ public class ResponseError extends AbstractHttpResponse {
         }
     }
 
-    public void raiseError(Context c, int duration){
+    public void raiseError(Context c){
         if(this.name.equals(ResponseError.CLIENT_ERROR)){
-            Toast.makeText(c,
-               "Error "
-               + String.valueOf(this.errorCode) + " : "
-               + this.errorMessage
-               + " -:- ID.ARVORE = " + this.errorOn,
-               duration).show();
         }else{
-            Toast.makeText(c,"Error " + String.valueOf(this.errorCode) + " : " + this.errorMessage, duration).show();
         }
     }
     public boolean handleError(){
