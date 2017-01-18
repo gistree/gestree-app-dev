@@ -13,6 +13,7 @@ import com.example.gistree.db_con.application.activities.cortantes.MyRecyclerVie
 import com.example.gistree.db_con.application.activities.cortantes.SearchableSpinnerYo;
 import com.example.gistree.db_con.application.activities.cortantes.SwipeRecycler;
 import com.example.gistree.db_con.application.activities.cortantes.SwipeToShowButton;
+import com.example.gistree.db_con.application.activities.cortantes.sweetalert.SweetAlertMain;
 
 public class CMenuActivity extends AppCompatActivity {
 
@@ -23,7 +24,7 @@ public class CMenuActivity extends AppCompatActivity {
     public static final int MYSWIPERECYCLERVIEW = 10;
     public static final int SWIPETOSHOWBUTTON = 11;
     public static final int SCROLLABLETABS = 12;
-
+    public static final int SWEETALERT = 13;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,5 +65,10 @@ public class CMenuActivity extends AppCompatActivity {
     protected void openScrollableTabsActivity (View v) {
         Intent intent = new Intent(CMenuActivity.this, MainScrollableTabs.class);
         startActivityForResult(intent,SCROLLABLETABS);
+    }
+
+    protected void openSweetAlertActivity (View v) {
+        Intent intent = new Intent(CMenuActivity.this, SweetAlertMain.class);
+        startActivityForResult(intent,SWEETALERT);
     }
 }

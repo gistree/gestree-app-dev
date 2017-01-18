@@ -14,56 +14,56 @@
         android:text="nice form"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
         android:id="@+id/button3"
-        android:onClick="openFormActivity"/>
+        android:onClick="openFormActivity"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="multi spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="11dp"
         android:id="@+id/button4"
+        android:onClick="openMultiSpinnerActivity"
         android:layout_below="@+id/button3"
-        android:layout_centerHorizontal="true"
-        android:onClick="openMultiSpinnerActivity"/>
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Searchable Spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="12dp"
         android:id="@+id/button5"
+        android:onClick="openSearchableSpinnerActivity"
         android:layout_below="@+id/button4"
-        android:layout_centerHorizontal="true"
-        android:onClick="openSearchableSpinnerActivity"/>
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Recycler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button7"
-        android:layout_centerVertical="true"
+        android:onClick="openRecyclerViewActivity"
+        android:layout_below="@+id/button5"
         android:layout_centerHorizontal="true"
-        android:onClick="openRecyclerViewActivity"/>
+        android:layout_marginTop="15dp" />
 
     <Button
         android:text="Swipe Recycler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button7"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:id="@+id/button8"
-        android:onClick="openSwipeRecyclerViewActivity"/>
+        android:onClick="openSwipeRecyclerViewActivity"
+        android:layout_below="@+id/button7"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Swipe button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="13dp"
         android:id="@+id/button9"
         android:onClick="openSwipeToShowButtonActivity"
         android:layout_below="@+id/button8"
@@ -76,9 +76,18 @@
         android:layout_height="wrap_content"
         android:id="@+id/button6"
         android:onClick="openScrollableTabsActivity"
+        android:layout_below="@+id/button9"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp" />
+
+    <Button
+        android:text="Sweet alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button10"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp" />
+        android:onClick="openSweetAlertActivity"/>
 
 
 </RelativeLayout>
