@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">DB_CON</string>
-    <string name="action_settings">Settings</string>
     <string-array name="cenas">
         <item>cenas</item>.
         <item>batatas</item>
@@ -17,4 +16,9 @@
     </string-array>
     <string name="hello_world">Hello world!</string>
     <string name="fragment_configuration_title">Configuration</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

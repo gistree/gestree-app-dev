@@ -1,102 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.gistree.db_con.MainActivity_old">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="id_tree"
-        android:ems="10"
-        android:layout_marginLeft="20dp"
-        android:id="@+id/editText_inserir_id_tree"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="species"
-        android:ems="10"
-        android:layout_marginTop="50dp"
-        android:id="@+id/editText_inserir_species"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/textView"
+    <include
+        layout="@layout/app_bar_main"
         android:layout_width="match_parent"
-        android:layout_marginTop="200dp"
-        android:layout_height="300dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="match_parent" />
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/button_truncate">
-    </ListView>
-
-    <Button
-        android:text="Echo Do Servidor"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btEcho"
-        android:layout_below="@+id/editText_inserir_species"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
 
-    <Button
-        android:text="Enviar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="buttonSendClicked"
-        android:id="@+id/btEnviar"
-        android:layout_below="@+id/btEcho"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Trincar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="truncateTableLog"
-        android:id="@+id/button_truncate"
-        android:layout_below="@+id/btEcho"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:text="Enviar Teste"
-        android:layout_height="wrap_content"
-        android:id="@+id/btTeste"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/btEcho"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:layout_toEndOf="@+id/editText_inserir_id_tree"
-        android:layout_alignBottom="@+id/editText_inserir_id_tree"
-        android:layout_toRightOf="@+id/editText_inserir_id_tree"
-        android:onClick="openCActivity"/>
-
-
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>
