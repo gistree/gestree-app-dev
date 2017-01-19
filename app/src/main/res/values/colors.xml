@@ -32,6 +32,7 @@
         <item>@color/color_7</item>
         <item>@color/color_8</item>
     </array>
+
     <color name="blue_btn_bg_color">#4caf50</color>
     <color name="blue_btn_bg_pressed_color">#77b17a</color>
     <color name="button_text_color">#FFFFFF</color>
