@@ -1,7 +1,9 @@
 package com.example.gistree.db_con.lib.networking;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
+import com.example.gistree.db_con.application.components.GestreeAlerts;
 import com.example.gistree.db_con.lib.networking.data.AbstractHttpResponse;
 import com.example.gistree.db_con.lib.networking.data.Response;
 import com.example.gistree.db_con.lib.networking.data.ResponseError;
@@ -9,6 +11,8 @@ import com.example.gistree.db_con.lib.networking.data.ResponseError;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class HttpConnection extends AsyncTask<HttpRequest, Integer, AbstractHttpResponse> {
 
@@ -19,14 +23,19 @@ public class HttpConnection extends AsyncTask<HttpRequest, Integer, AbstractHttp
     private AsyncResponse delegate = null;
 
     private boolean _hasError = false;
+    private SweetAlertDialog sad;
+    private Context c;
 
-    public HttpConnection(AsyncResponse asyncResponse) {
+    public HttpConnection(Context c, AsyncResponse asyncResponse) {
         this.delegate = asyncResponse; //Assigning call back interface through constructor
+        this.c = c;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        sad = GestreeAlerts.progressAlert(c, "A Sincronizar...");
+        sad.show();
     }
     @Override
     protected AbstractHttpResponse doInBackground(HttpRequest... params) {
@@ -54,7 +63,7 @@ public class HttpConnection extends AsyncTask<HttpRequest, Integer, AbstractHttp
         }catch (IOException e){
             e.printStackTrace();
             this._hasError = true;
-            response = new ResponseError("Error", "ResponseError", 500, false, "O servidor não está a responder.", "Cliente");
+            response = new ResponseError("Error", "Response", 500, false, "O servidor não está a responder.", "Cliente");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -66,6 +75,7 @@ public class HttpConnection extends AsyncTask<HttpRequest, Integer, AbstractHttp
     }
     @Override
     protected void onPostExecute(AbstractHttpResponse res) {
+        sad.dismiss();
         if(this._hasError){
             delegate.onError((ResponseError) res);
         }else{

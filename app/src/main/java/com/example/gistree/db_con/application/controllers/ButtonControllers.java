@@ -7,6 +7,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.gistree.db_con.R;
+import com.example.gistree.db_con.application.components.GestreeAlerts;
 import com.example.gistree.db_con.lib.classes.JSONConvert;
 import com.example.gistree.db_con.lib.classes.Metadata;
 import com.example.gistree.db_con.lib.classes.maps.ArvoresAdapter;
@@ -43,7 +44,7 @@ public class ButtonControllers implements View.OnClickListener {
         RecordTimestamp tsm;
         switch (v.getId()){
             case R.id.btEcho:
-                new HttpConnection(new HttpConnection.AsyncResponse() {
+                new HttpConnection(context, new HttpConnection.AsyncResponse() {
                     @Override
                     public void onResponse(Response res) {
                         Toast.makeText(context, res.toString(), Toast.LENGTH_SHORT).show();
@@ -64,11 +65,11 @@ public class ButtonControllers implements View.OnClickListener {
                 ConnectionManager cm = ConnectionManager.getConnectionManager(context);
                 if(cm.isConnected()){
                     if(cm.isUsingMobileData()){
-                        GestreeToasts.mobileDataWarning(context);
+                        GestreeAlerts.warningAlert(context, "A utilização de uma Ligação de Dados não é suportada. Por Favor utilize Wi-Fi.");
                     }else if(cm.isUsingWiFi()){
                         tsm = repoTime.getLastTimestamp();
                         records = repoLog.getAllLogs();
-                        new HttpConnection(new HttpConnection.AsyncResponse() {
+                        new HttpConnection(context, new HttpConnection.AsyncResponse() {
                             @Override
                             public void onResponse(Response res) {
                                 try {
@@ -80,6 +81,7 @@ public class ButtonControllers implements View.OnClickListener {
                                     ArvoresAdapter adapter = (ArvoresAdapter) listView.getAdapter();
                                     adapter.updateAdapter(logs);
                                     repoLog.truncateTableLogs();
+                                    GestreeAlerts.successAlert(context, "Os dados foram sincronizados com sucesso!");
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 } catch (Exception e) {
@@ -100,7 +102,7 @@ public class ButtonControllers implements View.OnClickListener {
                         ));
                     }
                 }else{
-                    GestreeToasts.wifiWarning(context);
+                    GestreeAlerts.warningAlert(context, "Oops! É necessária uma ligação à Internet para continuar!");
                 }
                 break;
             default:

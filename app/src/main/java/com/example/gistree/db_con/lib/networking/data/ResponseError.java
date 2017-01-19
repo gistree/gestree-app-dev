@@ -2,6 +2,8 @@ package com.example.gistree.db_con.lib.networking.data;
 
 import android.content.Context;
 
+import com.example.gistree.db_con.application.components.GestreeAlerts;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,22 +61,16 @@ public class ResponseError extends AbstractHttpResponse {
             e.printStackTrace();
         }
     }
-
     public void raiseError(Context c){
         if(this.name.equals(ResponseError.CLIENT_ERROR)){
+            GestreeAlerts.errorAlert(c,this.errorCode,this.errorMessage,this.name, this.errorOn);
         }else{
+            GestreeAlerts.errorAlert(c,this.errorCode, this.errorMessage, this.name);
         }
     }
     public boolean handleError(){
         return this.savedData;
     }
-    public String getErrorName(){
-        return this.name;
-    }
-    public String getErrorLocation(){
-        return this.errorOn;
-    }
-
     @Override
     public String toString() {
         return this.errorMessage;
