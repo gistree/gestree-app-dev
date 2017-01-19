@@ -88,5 +88,15 @@
         android:layout_below="@+id/btEcho"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:text="c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:layout_toEndOf="@+id/editText_inserir_id_tree"
+        android:layout_alignBottom="@+id/editText_inserir_id_tree"
+        android:layout_toRightOf="@+id/editText_inserir_id_tree"
+        android:onClick="openCActivity"/>
+
 
 </RelativeLayout>

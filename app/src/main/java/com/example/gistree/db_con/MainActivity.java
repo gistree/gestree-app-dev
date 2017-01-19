@@ -1,22 +1,27 @@
 package com.example.gistree.db_con;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 
-import com.example.gistree.db_con.application.controllers.ButtonControllers;
+import com.example.gistree.db_con.application.activities.CMenuActivity;
 import com.example.gistree.db_con.lib.classes.Helper;
-import com.example.gistree.db_con.lib.classes.maps.ArvoresAdapter;
-import com.example.gistree.db_con.lib.classes.maps.ArvoresMap;
-import com.example.gistree.db_con.lib.database.records.RecordArvore;
-import com.example.gistree.db_con.lib.database.repositories.RepositoryArvores;
+import com.example.gistree.db_con.lib.classes.Metadata;
+import com.example.gistree.db_con.lib.classes.records.RecordArvore;
+
+import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
+import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
+import com.example.gistree.db_con.lib.classes.repositories.RepositoryArvores;
+import com.example.gistree.db_con.lib.classes.repositories.RepositoryLogArvores;
+import com.example.gistree.db_con.lib.classes.repositories.RepositoryTimestamp;
 import com.example.gistree.db_con.lib.database.DataFactory;
-import com.example.gistree.db_con.lib.networking.con.ConnectionManager;
 
 import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Bundle bd;
     private RecordArvore tree;
     public static final int UPDATEACTIVITY = 1;
+    public static final int CMENUACTIVITY = 4;
     public static final int RESULT_UPDATE_OK = 2;
     public static final int RESULT_DELETE_OK = 3;
 
@@ -36,27 +42,35 @@ public class MainActivity extends AppCompatActivity {
         Helper.setupUI(findViewById(R.id.activity_main), MainActivity.this);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        Helper.refreshDatabase(getApplicationContext());
-
-        ButtonControllers btc = new ButtonControllers(this);
+        /*
+        ButtonControllers btc = new ButtonControllers(getApplicationContext());
         Button btEcho = (Button) findViewById(R.id.btEcho);
-        Button btTest = (Button) findViewById(R.id.btTeste);
         Button btSync = (Button) findViewById(R.id.btEnviar);
-
         btEcho.setOnClickListener(btc);
-        btTest.setOnClickListener(btc);
         btSync.setOnClickListener(btc);
+        */
+
+        RepositoryLogArvores repoLog = new RepositoryLogArvores(getApplicationContext());
+        ArrayList<RecordLogArvore> aLogs = repoLog.getAllLogs();
 
         RepositoryArvores repoArv = new RepositoryArvores(getApplicationContext());
         ArrayList<RecordArvore> aArvores = repoArv.getAllArvores();
 
-        ArvoresMap arvs = new ArvoresMap(aArvores);
-        ListView listView = (ListView) findViewById(android.R.id.list);
-        ArvoresAdapter adapter = new ArvoresAdapter(getApplicationContext(), arvs);
-        listView.setAdapter(adapter);
+        RepositoryTimestamp repoTime = new RepositoryTimestamp(getApplicationContext());
+        RecordTimestamp timestamp = repoTime.getLastTimestamp();
 
-        ConnectionManager.registerBroadCastReceiver(getApplicationContext());
+        String url = Metadata.getAPIUrl(getApplicationContext());
 
+        //new HttpConnection().execute(new HttpRequest(getApplicationContext(),url+"echo/estou_vivo", "GET"));
+
+        Log.e("END", "END");
+
+
+//        ListView listView = (ListView) findViewById(android.R.id.list);
+//        values = db.arvoresToShow(db.getAllArvores(), db.getAllLogs());
+//        adapter = new ArrayAdapter<>(this,
+//                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+//        listView.setAdapter(adapter);
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -71,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
 //        });
 //
 //        new SendPostRequest().execute();
+
+        //SimpleToast.ok(getApplicationContext(), "qualquercoisa", "{fa-home}", 1000);
 
     }
 
@@ -121,5 +137,10 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }
 //    }
+
+    protected void openCActivity (View v) {
+        Intent intent = new Intent(MainActivity.this, CMenuActivity.class);
+        startActivityForResult(intent,CMENUACTIVITY);
+    }
 }
 
