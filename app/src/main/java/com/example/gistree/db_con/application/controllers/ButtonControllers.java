@@ -2,16 +2,6 @@ package com.example.gistree.db_con.application.controllers;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.Toast;
-
-import com.example.gistree.db_con.R;
-import com.example.gistree.db_con.lib.classes.records.RecordArvore;
-import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
-import com.example.gistree.db_con.lib.classes.repositories.RepositoryTimestamp;
-import com.example.gistree.db_con.lib.networking.HttpConnection;
-import com.example.gistree.db_con.lib.networking.HttpRequest;
-
-import java.util.ArrayList;
 
 public class ButtonControllers implements View.OnClickListener {
 
