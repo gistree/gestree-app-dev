@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,7 +46,7 @@
         <activity android:name=".application.activities.cortantes.SwipeToShowButton" />
         <activity android:name=".application.activities.cortantes.scrollabletabs.MainScrollableTabs" />
         <activity android:name=".application.activities.cortantes.scrollabletabs.ScrollableInsideFragmentActivity" />
-        <activity android:name=".application.activities.cortantes.sweetalert.SweetAlertMain"></activity>
+        <activity android:name=".application.activities.cortantes.sweetalert.SweetAlertMain"/>
     </application>
 
 </manifest>
