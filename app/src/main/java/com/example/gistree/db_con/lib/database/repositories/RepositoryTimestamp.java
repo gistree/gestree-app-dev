@@ -1,11 +1,11 @@
-package com.example.gistree.db_con.lib.classes.repositories;
+package com.example.gistree.db_con.lib.database.repositories;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
-import com.example.gistree.db_con.lib.classes.records.RecordInterface;
+import com.example.gistree.db_con.lib.database.records.RecordTimestamp;
+import com.example.gistree.db_con.lib.database.records.RecordInterface;
 import com.example.gistree.db_con.lib.database.DataFactory;
 
 import java.util.ArrayList;
@@ -23,24 +23,17 @@ public class RepositoryTimestamp implements RepositoryInterface {
         this.myContext = c;
     }
 
-    public RecordTimestamp saveTimestamp(RecordTimestamp r){
-        RecordTimestamp rec = null;
-        try {
-            rec = (RecordTimestamp) db.insert(this, r);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return rec;
+    public RecordTimestamp saveTimestamp(RecordTimestamp r) throws Exception {
+        return (RecordTimestamp) db.insertRecord(this, r);
     }
     public RecordTimestamp getLastTimestamp(){
-        return (RecordTimestamp) db.getLast(this);
+        return (RecordTimestamp) db.getLastRecord(this);
     }
 
     @Override
     public ContentValues values(RecordInterface i) {
         RecordTimestamp tsm = (RecordTimestamp) i;
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, tsm.getId());
         values.put(COLUMN_TIMESTAMP, tsm.getTimestamp());
         return values;
     }

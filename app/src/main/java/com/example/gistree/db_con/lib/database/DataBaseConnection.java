@@ -40,7 +40,7 @@ public class DataBaseConnection extends SQLiteOpenHelper {
             try {
                 copyDataBase();
             } catch (IOException e) {
-                throw new Error("Error copying database");
+                throw new Error("ResponseError copying database");
             }
         }
     }

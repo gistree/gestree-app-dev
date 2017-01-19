@@ -2,30 +2,21 @@ package com.example.gistree.db_con;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-
-import com.example.gistree.db_con.lib.classes.Helper;
-import com.example.gistree.db_con.lib.classes.Metadata;
-import com.example.gistree.db_con.lib.classes.records.RecordArvore;
+import android.widget.ListView;
 
 import com.example.gistree.db_con.application.controllers.ButtonControllers;
-import com.example.gistree.db_con.lib.classes.records.RecordInterface;
-import com.example.gistree.db_con.lib.classes.records.RecordLogArvore;
-import com.example.gistree.db_con.lib.classes.records.RecordTimestamp;
-import com.example.gistree.db_con.lib.classes.repositories.RepositoryArvores;
-import com.example.gistree.db_con.lib.classes.repositories.RepositoryLogArvores;
-import com.example.gistree.db_con.lib.classes.repositories.RepositoryTimestamp;
+import com.example.gistree.db_con.lib.classes.Helper;
+import com.example.gistree.db_con.lib.classes.maps.ArvoresAdapter;
+import com.example.gistree.db_con.lib.classes.maps.ArvoresMap;
+import com.example.gistree.db_con.lib.database.records.RecordArvore;
+import com.example.gistree.db_con.lib.database.repositories.RepositoryArvores;
 import com.example.gistree.db_con.lib.database.DataFactory;
-import com.example.gistree.db_con.lib.networking.HttpConnection;
-import com.example.gistree.db_con.lib.networking.HttpRequest;
+import com.example.gistree.db_con.lib.networking.con.ConnectionManager;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.logging.LogRecord;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,35 +36,27 @@ public class MainActivity extends AppCompatActivity {
         Helper.setupUI(findViewById(R.id.activity_main), MainActivity.this);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        /*
-        ButtonControllers btc = new ButtonControllers(getApplicationContext());
-        Button btEcho = (Button) findViewById(R.id.btEcho);
-        Button btSync = (Button) findViewById(R.id.btEnviar);
-        btEcho.setOnClickListener(btc);
-        btSync.setOnClickListener(btc);
-        */
+        Helper.refreshDatabase(getApplicationContext());
 
-        RepositoryLogArvores repoLog = new RepositoryLogArvores(getApplicationContext());
-        ArrayList<RecordLogArvore> aLogs = repoLog.getAllLogs();
+        ButtonControllers btc = new ButtonControllers(this);
+        Button btEcho = (Button) findViewById(R.id.btEcho);
+        Button btTest = (Button) findViewById(R.id.btTeste);
+        Button btSync = (Button) findViewById(R.id.btEnviar);
+
+        btEcho.setOnClickListener(btc);
+        btTest.setOnClickListener(btc);
+        btSync.setOnClickListener(btc);
 
         RepositoryArvores repoArv = new RepositoryArvores(getApplicationContext());
         ArrayList<RecordArvore> aArvores = repoArv.getAllArvores();
 
-        RepositoryTimestamp repoTime = new RepositoryTimestamp(getApplicationContext());
-        RecordTimestamp timestamp = repoTime.getLastTimestamp();
+        ArvoresMap arvs = new ArvoresMap(aArvores);
+        ListView listView = (ListView) findViewById(android.R.id.list);
+        ArvoresAdapter adapter = new ArvoresAdapter(getApplicationContext(), arvs);
+        listView.setAdapter(adapter);
 
-        String url = Metadata.getAPIUrl(getApplicationContext());
+        ConnectionManager.registerBroadCastReceiver(getApplicationContext());
 
-        //new HttpConnection().execute(new HttpRequest(getApplicationContext(),url+"echo/estou_vivo", "GET"));
-
-        Log.e("END", "END");
-
-
-//        ListView listView = (ListView) findViewById(android.R.id.list);
-//        values = db.arvoresToShow(db.getAllArvores(), db.getAllLogs());
-//        adapter = new ArrayAdapter<>(this,
-//                android.R.layout.simple_list_item_1, android.R.id.text1, values);
-//        listView.setAdapter(adapter);
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
