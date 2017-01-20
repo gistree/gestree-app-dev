@@ -1,22 +1,9 @@
 package com.example.gistree.db_con.application.activities;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-
-import com.example.gistree.db_con.R;
-import com.example.gistree.db_con.application.activities.cortantes.FormActivity;
-import com.example.gistree.db_con.application.activities.cortantes.scrollabletabs.MainScrollableTabs;
-import com.example.gistree.db_con.application.activities.cortantes.MultiSpinners;
-import com.example.gistree.db_con.application.activities.cortantes.MyRecyclerView;
-import com.example.gistree.db_con.application.activities.cortantes.SearchableSpinnerYo;
-import com.example.gistree.db_con.application.activities.cortantes.SwipeRecycler;
-import com.example.gistree.db_con.application.activities.cortantes.SwipeToShowButton;
-import com.example.gistree.db_con.application.activities.cortantes.sweetalert.SweetAlertMain;
 
 public class CMenuActivity extends AppCompatActivity {
-
+/*
     public static final int FORMACTIVITY = 6;
     public static final int MULTISPINNERACTIVITY = 7;
     public static final int SEARCHABLESPINNERYO = 8;
@@ -70,5 +57,5 @@ public class CMenuActivity extends AppCompatActivity {
     protected void openSweetAlertActivity (View v) {
         Intent intent = new Intent(CMenuActivity.this, SweetAlertMain.class);
         startActivityForResult(intent,SWEETALERT);
-    }
+    }*/
 }

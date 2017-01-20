@@ -1,24 +1,9 @@
 <resources>
-    <string name="app_name">DB_CON</string>
-    <string-array name="cenas">
-        <item>cenas</item>.
-        <item>batatas</item>
-        <item>cenas</item>
-        <item>jorge</item>
-        <item>ah</item>
-        <item>pois</item>
-        <item>o que</item>
-        <item>tu</item>
-        <item>queres</item>
-        <item>sei</item>
-        <item>eu</item>
-        <item>lolololololololololol</item>
-    </string-array>
-    <string name="hello_world">Hello world!</string>
-    <string name="fragment_configuration_title">Configuration</string>
+    <string name="app_name">Gestree Inventory Application</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="navigation_drawer_open">Abrir Navegação</string>
+    <string name="navigation_drawer_close">Fechar Navegação</string>
 
     <string name="action_settings">Settings</string>
 </resources>

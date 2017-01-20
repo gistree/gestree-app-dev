@@ -95,7 +95,8 @@ public class ConfigurationFragment extends BaseFragment {
 
     @Override
     public CharSequence getTitle(Resources r) {
-        return r.getString(R.string.fragment_configuration_title);
+        //return r.getString(R.string.fragment_configuration_title);
+        return "Configuration Title";
     }
 
     @Override
